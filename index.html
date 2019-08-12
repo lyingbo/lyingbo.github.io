@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="NoName 技术专栏">
+<meta property="og:url" content="http://lyingbo.com/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:locale" content="zh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NoName 技术专栏">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Run Hadoop Cluster within Docker Containers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/13/Run Hadoop Cluster within Docker Containers/" class="article-date">
+  <time datetime="2019-08-12T16:00:00.000Z" itemprop="datePublished">2019-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/Run Hadoop Cluster within Docker Containers/">Run Hadoop Cluster within Docker Containers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Run-Hadoop-Cluster-within-Docker-Containers"><a href="#Run-Hadoop-Cluster-within-Docker-Containers" class="headerlink" title="Run Hadoop Cluster within Docker Containers"></a>Run Hadoop Cluster within Docker Containers</h2><ul>
+<li>Blog: <a href="http://blog.sina.com.cn/s/blog_6f83fdb40102yhur.html" target="_blank" rel="noopener">基于Docker搭建Hadoop集群</a></li>
+</ul>
+<h3 id="A-3-Nodes-Hadoop-Cluster"><a href="#A-3-Nodes-Hadoop-Cluster" class="headerlink" title="A. 3 Nodes Hadoop Cluster"></a>A. 3 Nodes Hadoop Cluster</h3><h5 id="1-pull-docker-image"><a href="#1-pull-docker-image" class="headerlink" title="1. pull docker image"></a>1. pull docker image</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull lyingbo/hadoop:3.2.0</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-clone-github-repository"><a href="#2-clone-github-repository" class="headerlink" title="2. clone github repository"></a>2. clone github repository</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/lyingbo/hadoop-cluster-docker.git</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-start-container"><a href="#3-start-container" class="headerlink" title="3. start container"></a>3. start container</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd hadoop-cluster-docker</span><br><span class="line">sudo ./start-container.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>output:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start hadoop-master container...</span><br><span class="line">start hadoop-slave1 container...</span><br><span class="line">start hadoop-slave2 container...</span><br><span class="line">root@hadoop-master:/#</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>start 3 containers with 1 master and 2 slaves</li>
+<li>you will get into the /root directory of hadoop-master container</li>
+</ul>
+<h5 id="4-start-hadoop"><a href="#4-start-hadoop" class="headerlink" title="4. start hadoop"></a>4. start hadoop</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>output:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [hadoop-master]</span><br><span class="line">hadoop-master: Warning: Permanently added &apos;hadoop-master,172.18.0.2&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Starting datanodes</span><br><span class="line">hadoop-slave2: Warning: Permanently added &apos;hadoop-slave2,172.18.0.4&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">hadoop-slave1: Warning: Permanently added &apos;hadoop-slave1,172.18.0.3&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Starting secondary namenodes [hadoop-master]</span><br><span class="line">Starting resourcemanager</span><br><span class="line">Starting nodemanagers</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-run-wordcount"><a href="#5-run-wordcount" class="headerlink" title="5. run wordcount"></a>5. run wordcount</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run-wordcount.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>output:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">input file1.txt:</span><br><span class="line">Hello Docker</span><br><span class="line"></span><br><span class="line">input file2.txt:</span><br><span class="line">Hello Hadoop</span><br><span class="line"></span><br><span class="line">input file3.txt:</span><br><span class="line">Hello MapReduce</span><br><span class="line"></span><br><span class="line">wordcount output:</span><br><span class="line">Docker  1</span><br><span class="line">Hadoop  1</span><br><span class="line">Hello   3</span><br><span class="line">MapReduce       1</span><br></pre></td></tr></table></figure>
+
+<h3 id="B-Arbitrary-size-Hadoop-cluster"><a href="#B-Arbitrary-size-Hadoop-cluster" class="headerlink" title="B. Arbitrary size Hadoop cluster"></a>B. Arbitrary size Hadoop cluster</h3><h5 id="1-clone-github-repository"><a href="#1-clone-github-repository" class="headerlink" title="1. clone github repository"></a>1. clone github repository</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do 2 like section A</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-rebuild-docker-image"><a href="#2-rebuild-docker-image" class="headerlink" title="2. rebuild docker image"></a>2. rebuild docker image</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./resize-cluster.sh 5</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>specify parameter &gt; 1: 2, 3..</li>
+<li>this script just rebuild hadoop image with different <strong>workers</strong> file, which pecifies the name of all nodes</li>
+</ul>
+<h5 id="3-start-container-1"><a href="#3-start-container-1" class="headerlink" title="3. start container"></a>3. start container</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./start-container.sh 5</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>use the same parameter as the step 2</li>
+</ul>
+<h5 id="4-run-hadoop-cluster"><a href="#4-run-hadoop-cluster" class="headerlink" title="4. run hadoop cluster"></a>4. run hadoop cluster</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do 4~5 like section A</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2019/08/13/Run Hadoop Cluster within Docker Containers/" data-id="cjz8n8uiv00002wdx6slurudc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/13/Run Hadoop Cluster within Docker Containers/">Run Hadoop Cluster within Docker Containers</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -92,49 +92,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id><a href="#" class="headerlink" title=" "></a> </h2><h3 id="A-3-Nodes-Hadoop-Cluster"><a href="#A-3-Nodes-Hadoop-Cluster" class="headerlink" title="A. 3 Nodes Hadoop Cluster"></a>A. 3 Nodes Hadoop Cluster</h3><h5 id="1-pull-docker-image"><a href="#1-pull-docker-image" class="headerlink" title="1. pull docker image"></a>1. pull docker image</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull lyingbo/hadoop:3.2.0</span><br></pre></td></tr></table></figure>
+        <p>将Hadoop打包到Docker镜像中，就可以快速的在单个机器上搭建Hadoop集群，这样可以方便新手测试和学习。</p>
+<p>Hadoop的master和slave分别运行在不同的Docker容器中，其中NameNode、ResourceManager运行在hadoop-master容器中，DataNode、NodeManager运行在hadoop-slave容器中。NameNode和DataNode是Hadoop分布式文件系统HDFS的组件，负责储存输入以及输出数据，而ResourceManager和NodeManager是Hadoop集群资源管理系统YARN的组件，负责CPU和内存资源的调度。</p>
+<p>接下来将以Ubuntu16.04为基镜像，介绍搭建Hadoop3.2.0伪分布式集群运行环境的步骤：</p>
+<h2 id><a href="#" class="headerlink" title=" "></a> </h2><h3 id="A-3节点Hadoop集群搭建步骤"><a href="#A-3节点Hadoop集群搭建步骤" class="headerlink" title="A. 3节点Hadoop集群搭建步骤:"></a>A. 3节点Hadoop集群搭建步骤:</h3><h5 id="1-下载Docker镜像"><a href="#1-下载Docker镜像" class="headerlink" title="1. 下载Docker镜像"></a>1. 下载Docker镜像</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull lyingbo/hadoop:3.2.0</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-clone-github-repository"><a href="#2-clone-github-repository" class="headerlink" title="2. clone github repository"></a>2. clone github repository</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/lyingbo/hadoop-cluster-docker.git</span><br></pre></td></tr></table></figure>
+<h5 id="2-下载shell脚本"><a href="#2-下载shell脚本" class="headerlink" title="2. 下载shell脚本"></a>2. 下载shell脚本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/lyingbo/hadoop-cluster-docker.git</span><br></pre></td></tr></table></figure>
 
-<h5 id="3-start-container"><a href="#3-start-container" class="headerlink" title="3. start container"></a>3. start container</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd hadoop-cluster-docker</span><br><span class="line">sudo ./start-container.sh</span><br></pre></td></tr></table></figure>
+<h5 id="3-运行Docker容器"><a href="#3-运行Docker容器" class="headerlink" title="3. 运行Docker容器"></a>3. 运行Docker容器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd hadoop-cluster-docker</span><br><span class="line">sudo ./start-container.sh</span><br></pre></td></tr></table></figure>
 
-<p><strong>output:</strong></p>
+<p><strong>运行结果:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start hadoop-master container...</span><br><span class="line">start hadoop-slave1 container...</span><br><span class="line">start hadoop-slave2 container...</span><br><span class="line">root@hadoop-master:/#</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>start 3 containers with 1 master and 2 slaves</li>
-<li>you will get into the /root directory of hadoop-master container</li>
+<li>启动了3个容器，1个master，2个slave</li>
+<li>运行后就进入了hadoop-master容器的/root目录</li>
 </ul>
-<h5 id="4-start-hadoop"><a href="#4-start-hadoop" class="headerlink" title="4. start hadoop"></a>4. start hadoop</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
+<h5 id="4-启动hadoop集群"><a href="#4-启动hadoop集群" class="headerlink" title="4. 启动hadoop集群"></a>4. 启动hadoop集群</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
 
-<p><strong>output:</strong></p>
+<p><strong>运行结果:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [hadoop-master]</span><br><span class="line">hadoop-master: Warning: Permanently added &apos;hadoop-master,172.18.0.2&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Starting datanodes</span><br><span class="line">hadoop-slave2: Warning: Permanently added &apos;hadoop-slave2,172.18.0.4&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">hadoop-slave1: Warning: Permanently added &apos;hadoop-slave1,172.18.0.3&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Starting secondary namenodes [hadoop-master]</span><br><span class="line">Starting resourcemanager</span><br><span class="line">Starting nodemanagers</span><br></pre></td></tr></table></figure>
 
-<h5 id="5-run-wordcount"><a href="#5-run-wordcount" class="headerlink" title="5. run wordcount"></a>5. run wordcount</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run-wordcount.sh</span><br></pre></td></tr></table></figure>
+<h5 id="5-运行wordcount示例"><a href="#5-运行wordcount示例" class="headerlink" title="5. 运行wordcount示例"></a>5. 运行wordcount示例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run-wordcount.sh</span><br></pre></td></tr></table></figure>
 
-<p><strong>output:</strong></p>
+<p><strong>运行结果:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">input file1.txt:</span><br><span class="line">Hello Docker</span><br><span class="line"></span><br><span class="line">input file2.txt:</span><br><span class="line">Hello Hadoop</span><br><span class="line"></span><br><span class="line">input file3.txt:</span><br><span class="line">Hello MapReduce</span><br><span class="line"></span><br><span class="line">wordcount output:</span><br><span class="line">Docker  1</span><br><span class="line">Hadoop  1</span><br><span class="line">Hello   3</span><br><span class="line">MapReduce       1</span><br></pre></td></tr></table></figure>
 
-<h3 id="B-Arbitrary-size-Hadoop-cluster"><a href="#B-Arbitrary-size-Hadoop-cluster" class="headerlink" title="B. Arbitrary size Hadoop cluster"></a>B. Arbitrary size Hadoop cluster</h3><h5 id="1-clone-github-repository"><a href="#1-clone-github-repository" class="headerlink" title="1. clone github repository"></a>1. clone github repository</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do 2 like section A</span><br></pre></td></tr></table></figure>
+<h2 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h2><h3 id="B-N节点Hadoop集群搭建步骤"><a href="#B-N节点Hadoop集群搭建步骤" class="headerlink" title="B. N节点Hadoop集群搭建步骤:"></a>B. N节点Hadoop集群搭建步骤:</h3><h5 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考A部分2.下载shell脚本</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-rebuild-docker-image"><a href="#2-rebuild-docker-image" class="headerlink" title="2. rebuild docker image"></a>2. rebuild docker image</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./resize-cluster.sh 5</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>specify parameter &gt; 1: 2, 3..</li>
-<li>this script just rebuild hadoop image with different <strong>workers</strong> file, which pecifies the name of all nodes</li>
-</ul>
-<h5 id="3-start-container-1"><a href="#3-start-container-1" class="headerlink" title="3. start container"></a>3. start container</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./start-container.sh 5</span><br></pre></td></tr></table></figure>
+<h5 id="2-重新构建Docker镜像"><a href="#2-重新构建Docker镜像" class="headerlink" title="2. 重新构建Docker镜像"></a>2. 重新构建Docker镜像</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./resize-cluster.sh 5</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>use the same parameter as the step 2</li>
+<li>可以指定任意N(N&gt;1)</li>
 </ul>
-<h5 id="4-run-hadoop-cluster"><a href="#4-run-hadoop-cluster" class="headerlink" title="4. run hadoop cluster"></a>4. run hadoop cluster</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do 4~5 like section A</span><br></pre></td></tr></table></figure>
+<h5 id="3-启动Docker容器"><a href="#3-启动Docker容器" class="headerlink" title="3. 启动Docker容器"></a>3. 启动Docker容器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./start-container.sh 5</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>与前一步中的N保持一致。</li>
+</ul>
+<h5 id="4-运行Hadoop"><a href="#4-运行Hadoop" class="headerlink" title="4. 运行Hadoop"></a>4. 运行Hadoop</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考A部分4~6.启动Hadoop，并运行wordcount。</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2019/08/13/基于Docker搭建Hadoop集群/" data-id="cjz8o6pou0000tudx52tp1pv7" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2019/08/13/基于Docker搭建Hadoop集群/" data-id="cjznpbuwg0000xcdxzzwipl5k" class="article-share-link">Share</a>
       
       
     </footer>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>基于OpenDDS应用程序开发(1)IDL定义 | NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于OpenDDS应用程序开发(1)IDL定义">
+<meta property="og:url" content="http://lyingbo.com/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-12T10:07:56.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于OpenDDS应用程序开发(1)IDL定义">
+<meta name="twitter:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-基于OpenDDS应用程序开发(1)IDL定义" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/" class="article-date">
+  <time datetime="2019-08-19T16:00:00.000Z" itemprop="datePublished">2019-08-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenDDS/">OpenDDS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于OpenDDS应用程序开发(1)IDL定义
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。</p>
+<p>本文是第一篇，主要介绍IDL的定义及编译。</p>
+<h2 id="IDL定义"><a href="#IDL定义" class="headerlink" title="IDL定义"></a>IDL定义</h2><p>DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。<br>这些数据类型再由tao_idl编译器和OpenDDS_idl编译器进行预编译出来，生成用于网络传输这些数据类型的代码。</p>
+<p>下面是一个定义Demo数据类型的IDL文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module Demo &#123;</span><br><span class="line"></span><br><span class="line">#pragma DCPS_DATA_TYPE &quot;Demo::Pos&quot;</span><br><span class="line">#pragma DCPS_DATA_KEY &quot;Demo::Pos.pos_id&quot;</span><br><span class="line"></span><br><span class="line">    struct Pos &#123;</span><br><span class="line">        long pos_id;</span><br><span class="line">        long pos_x;</span><br><span class="line">        long pos_y;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>IDL文件使用DCPS_DATA_TYPE定义一个结构体数据类型，IDL语法要求每个类型定义必须以该关键字开头。OpenDDS规定数据类型必须为一个结构体，结构体中可包含标量类型（short、long、float等）、枚举类型、字符串、队列、数组、结构体、以及它们的组合。本例中在demo模块中定义了一个结构体pos。</p>
+<p>使用DCPS_DATA_KEY定义一个数据类型的键，一种数据类型可以有0个或多个键，这些键用于区分同一个主题内的不同实体。每个键必须是数值型、枚举型、字符串或者这些类型的typedef。DCPS_DATA_KEY限定了作用域的数据类型以及成员名，成员名标识为该类型的键，多个键由多个DCPS_DATA_KEY指定。在上面的IDL定义中，指定了pos_id作为Demo::Pos的键。每个样本发布时带有一个唯一的pos_id值，这样就可以区分同一主题中的不同实例。由于使用了默认的QoS策略，随后带有相同pos_id值的样本就会替代先前的样本。</p>
+<p>其它类型，如结构体、序列和数组不能直接用来做key，但是当结构体的成员或数组中的元素是数值型、枚举型或者字符串型时可以。</p>
+<h2 id="IDL编译"><a href="#IDL编译" class="headerlink" title="IDL编译"></a>IDL编译</h2><p>IDL文件首先需要由tao_idl编译，以生成数据在网络上传输时打包解包的代码，该IDL编译器位于$ACE_ROOT/bin/目录下，运行命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tao_idl Demo.idl</span><br></pre></td></tr></table></figure>
+
+<p>该命令为每个IDL文件编译生成6个个文件，这6个文件的文件名均由原IDL文件名开头，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;filename&gt;C.cpp</span><br><span class="line">&lt;filename&gt;C.h</span><br><span class="line">&lt;filename&gt;C.inl</span><br><span class="line">&lt;filename&gt;S.cpp</span><br><span class="line">&lt;filename&gt;S.h</span><br><span class="line">&lt;filename&gt;S.inl</span><br></pre></td></tr></table></figure>
+
+<p>进而，IDL文件还需要由opendds_idl编译，以生成OpenDDS需要打包和解包信息的序列化和键支持代码，及用于数据读者和写者类型支持代码，该IDL编译器位于$DDS_ROOT/bin/目录下，运行命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opendds_idl Demo.idl</span><br></pre></td></tr></table></figure>
+
+<p>该命令为每个IDL文件编译生成三个文件，这三个文件的文件名均由原IDL文件名开头，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;filename&gt;TypeSupport.idl</span><br><span class="line">&lt;filename&gt;TypeSupportImpl.h</span><br><span class="line">&lt;filename&gt;TypeSupportImpl.cpp</span><br></pre></td></tr></table></figure>
+
+<p>会生成DemoTypeSupport.idl、DemoTypeSupportImpl.h和DemoTypeSupportImpl.cpp三个文件，生成的IDL文件中包括了PosTypeSupport, PosDataWriter 和PosDataReader的接口定义，这些特定的DDS类型接口将会在稍后注册数据类型，发布数据样本和接收数据样本时使用，而生成的cpp文件实现了这些接口。</p>
+<p>生成的IDL文件还需要和原始的IDL一起，由tao_idl编译器再次编译，以便生成相应的接口框架，之后这些生成的实现文件需要和使用Pos类型的OpenDDS应用程序源码一起编译链接。</p>
+<p>opendds_idl编译器提供了许多选项参数，用于配置代码生成，这些选项参数将在后续章节详细描述。</p>
+<p>通常，我们不需要手动直接调用tao_idl或者opendds_idl来编译IDL文件，可以借助编译工具来完成，如果使用ACE的MPC(MakeProjectCreator)工具，通过继承dcps来配置，该过程将会很简单，如下是使用ACE的MPC工具来实现这个工作的步骤：</p>
+<p>首先，需要编写一个Demo.mpc文件，在mpc文件中定义一个idl工程，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">project(*idl): dcps &#123;</span><br><span class="line"></span><br><span class="line">    // This project ensures the common components get built first.</span><br><span class="line">    TypeSupport_Files &#123;</span><br><span class="line">        Demo.idl</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    custom_only = 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>idl工程从父工程dcps继承，父工程dcps中定义了类型支持的编译规则，TypeSupport_Files部分告诉MPC，使用opendds_idl编译器从Demo.idl中生成类型支持文件。</p>
+<p>编写好mpc文件之后，就可以使用MPC命令来生成C/C++的编译配置文件了，(MPC工具可以生成很多种系统的编译工程，包括Windows的Visual Studio系列，Linux的Makefile等)，这里将Demo.idl文件和Demo.mpc文件放到Demo文件加下，使用如下命令来生成Vs2008的工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl   mwc.pl  -type  vc9</span><br></pre></td></tr></table></figure>
+
+<p>命令执行完成后，会生成对应的Vs2008工程文件，包括vcproj和sln等，使用Vs2008打开Demo.sln就可以编译前面定义的idl文件，生成DemoC.cpp和DemoTypeSupport.idl等文件了。</p>
+<p>关于公布端和订阅端应用程序的开发请参见后续博文。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/" data-id="ck0gj5915000177dxoytab1xj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于OpenDDS应用程序开发(2)公布端实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/13/基于Docker搭建Hadoop集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于Docker搭建Hadoop集群</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenDDS/">OpenDDS</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/">基于OpenDDS应用程序开发(2)公布端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/13/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>基于OpenDDS应用程序开发(3)订阅端实现 | NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 新建订阅端工程参考前一博文中MPC的用法，在Demo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于OpenDDS应用程序开发(3)订阅端实现">
+<meta property="og:url" content="http://lyingbo.com/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 新建订阅端工程参考前一博文中MPC的用法，在Demo">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-12T10:07:47.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于OpenDDS应用程序开发(3)订阅端实现">
+<meta name="twitter:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 新建订阅端工程参考前一博文中MPC的用法，在Demo">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-基于OpenDDS应用程序开发(3)订阅端实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/" class="article-date">
+  <time datetime="2019-09-02T16:00:00.000Z" itemprop="datePublished">2019-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenDDS/">OpenDDS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于OpenDDS应用程序开发(3)订阅端实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。</p>
+<p>本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。</p>
+<h2 id="新建订阅端工程"><a href="#新建订阅端工程" class="headerlink" title="新建订阅端工程"></a>新建订阅端工程</h2><p>参考前一博文中MPC的用法，在Demo.mpc文件中增加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> project(*Subscriber) : dcpsexe_with_tcp &#123;</span><br><span class="line"></span><br><span class="line"> exename   = subscriber</span><br><span class="line"> after   += *idl</span><br><span class="line"></span><br><span class="line"> TypeSupport_Files &#123;</span><br><span class="line">   Demo.idl</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> Source_Files &#123;</span><br><span class="line">   Subscriber.cpp</span><br><span class="line">   DataReaderListenerImpl.cpp</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Subscriber工程从父工程dcpsexe_with_tcp继承，这里直接使用idl工程中定义好的Demo.idl文件。</p>
+<p>之后在Demo目录下新建三个文件：Subscriber.cpp、DataReaderListenerImpl.h、DataReaderListenerImpl.cpp，分别用来编写订阅端逻辑部分代码，并再次使用如下命令来生成Vs2008工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mwc.pl  -type  vc9</span><br></pre></td></tr></table></figure>
+
+<p>生成完成之后，使用Vs2008打开Demo.sln，就可以修改订阅端代码了：</p>
+<h2 id="初始化参与者"><a href="#初始化参与者" class="headerlink" title="初始化参与者"></a>初始化参与者</h2><p>初始化订阅端参与者代码同发布端是完全一样的，在Subscriber.cpp文件中增加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int main (int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  try &#123;</span><br><span class="line">  </span><br><span class="line">   DDS::DomainParticipantFactory_var dpf =</span><br><span class="line">     TheParticipantFactoryWithArgs(argc, argv);</span><br><span class="line"></span><br><span class="line">   DDS::DomainParticipant_var participant =</span><br><span class="line">     dpf-&gt;create_participant(42, // Domain ID</span><br><span class="line">                         PARTICIPANT_QOS_DEFAULT,</span><br><span class="line">                         0,  // No listener required</span><br><span class="line">                         OpenDDS::DCPS::DEFAULT_STATUS_MASK);</span><br><span class="line">   if (!participant) &#123;</span><br><span class="line">     std::cerr &lt;&lt; &quot;create_participant failed.&quot; &lt;&lt; std::endl;</span><br><span class="line">     return 1 ;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注册数据类型并创建主题"><a href="#注册数据类型并创建主题" class="headerlink" title="注册数据类型并创建主题"></a>注册数据类型并创建主题</h2><p>接下来，初始化数据类型和主题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Demo::PosTypeSupport_var mts = new Demo::PosTypeSupportImpl();</span><br><span class="line">if (DDS::RETCODE_OK != mts-&gt;register_type(participant, &quot;&quot;)) &#123;</span><br><span class="line">  std::cerr &lt;&lt; &quot;Failed to register the PosTypeSupport.&quot; &lt;&lt; std::endl;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CORBA::String_var type_name = mts-&gt;get_type_name();</span><br><span class="line">DDS::Topic_var topic =</span><br><span class="line">  participant-&gt;create_topic(&quot;Pos Demo&quot;,</span><br><span class="line">                        type_name,</span><br><span class="line">                        TOPIC_QOS_DEFAULT,</span><br><span class="line">                        0,   // No listener required</span><br><span class="line">                        OpenDDS::DCPS::DEFAULT_STATUS_MASK);</span><br><span class="line">if (!topic) &#123;</span><br><span class="line">  std::cerr &lt;&lt; &quot;Failed to create_topic.&quot; &lt;&lt; std::endl;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建订阅者"><a href="#创建订阅者" class="headerlink" title="创建订阅者"></a>创建订阅者</h2><p>调用create_subscriber()操作创建一个带有默认QoS策略的订阅者：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DDS::Subscriber_var sub =</span><br><span class="line">  participant-&gt;create_subscriber(SUBSCRIBER_QOS_DEFAULT,</span><br><span class="line">                            0,  // No listener required</span><br><span class="line">                            OpenDDS::DCPS::DEFAULT_STATUS_MASK);</span><br><span class="line">if (!sub) &#123;</span><br><span class="line">  std::cerr &lt;&lt; &quot;Failed to create_subscriber.&quot; &lt;&lt; std::endl;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建数据读者及监听者"><a href="#创建数据读者及监听者" class="headerlink" title="创建数据读者及监听者"></a>创建数据读者及监听者</h2><p>订阅端需要给数据读者关联一个监听者，用来接收数据的到达，下面的代码定义了一个监听者对象，类DataReaderListenerImpl的实现将在下一部分介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DDS::DataReaderListener_var listener(new DataReaderListenerImpl);</span><br></pre></td></tr></table></figure>
+
+<p>现在采用默认的QoS策略创建数据读者，并将它与主题、刚刚创建的监听者对象相关联起来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DDS::DataReader_var dr =</span><br><span class="line">  sub-&gt;create_datareader(topic,</span><br><span class="line">                     DATAREADER_QOS_DEFAULT,</span><br><span class="line">                     listener,</span><br><span class="line">                     OpenDDS::DCPS::DEFAULT_STATUS_MASK);</span><br><span class="line">if (!dr) &#123;</span><br><span class="line">  std::cerr &lt;&lt; &quot;create_datareader failed.&quot; &lt;&lt; std::endl;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，主线程就可以自由的去处理其它工作了，当有数据到达时，OpenDDS会调用监听者对象的回调接口通知，只需要在DataReaderListenerImpl类的回调函数中接收需要的数据就可以了。</p>
+<h2 id="数据读者监听者实现"><a href="#数据读者监听者实现" class="headerlink" title="数据读者监听者实现"></a>数据读者监听者实现</h2><p>监听者类继承自DDS规范的DDS::DataReaderListener接口，该接口定义了一些回调函数，每个回调函数被调用时，就是一个事件的通知，如：断开、重连等，以下是DataReaderListener接口的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">module DDS &#123;</span><br><span class="line"></span><br><span class="line"> local interface DataReaderListener : Listener &#123;</span><br><span class="line"></span><br><span class="line">   void on_requested_deadline_missed(in DataReader reader,</span><br><span class="line">                                 in RequestedDeadlineMissedStatus status);</span><br><span class="line"></span><br><span class="line">   void on_requested_incompatible_qos(in DataReader reader,</span><br><span class="line">                                 in RequestedIncompatibleQosStatus status);</span><br><span class="line"></span><br><span class="line">   void on_sample_rejected(in DataReader reader,</span><br><span class="line">                        in SampleRejectedStatus status);</span><br><span class="line"></span><br><span class="line">   void on_liveliness_changed(in DataReader reader,</span><br><span class="line">                          in LivelinessChangedStatus status);</span><br><span class="line"></span><br><span class="line">   void on_data_available(in DataReader reader);</span><br><span class="line"></span><br><span class="line">   void on_subscription_matched(in DataReader reader,</span><br><span class="line">                            in SubscriptionMatchedStatus status);</span><br><span class="line"></span><br><span class="line">   void on_sample_lost(in DataReader reader, in SampleLostStatus status);</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在本例的DataReaderListenerImpl类中真正需要的实现的回调接口是on_data_available()，它也是我们需要重新派生该类的唯一成员函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">void DataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader) &#123;</span><br><span class="line"></span><br><span class="line"> num_reads_ ++;</span><br><span class="line"></span><br><span class="line"> try&#123;</span><br><span class="line"></span><br><span class="line">   Demo::PosDataReader_var reader_i = Demo::PosDataReader::_narrow(reader);</span><br><span class="line">   if (!reader_i) &#123;</span><br><span class="line">     std::cerr &lt;&lt; &quot;read: _narrow failed.&quot; &lt;&lt; std::endl;</span><br><span class="line">     return;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   Demo::Pos pos;</span><br><span class="line">   DDS::SampleInfo si ;</span><br><span class="line">   DDS::ReturnCode_t status = reader_i-&gt;take_next_sample(pos, si) ;</span><br><span class="line">   if (status == DDS::RETCODE_OK) &#123;</span><br><span class="line">   </span><br><span class="line">     if (si.valid_data == 1) &#123;</span><br><span class="line">       std::cout &lt;&lt; &quot; Pos:pos_id = &quot; &lt;&lt; pos. pos_id &lt;&lt; std::endl</span><br><span class="line">                 &lt;&lt; &quot;  pos_x = &quot; &lt;&lt; pos. pos_x &lt;&lt; std::endl</span><br><span class="line">                 &lt;&lt; &quot;  pos_y = &quot; &lt;&lt; pos. pos_y &lt;&lt; std::endl;</span><br><span class="line">     &#125; else if (si.instance_state == DDS::NOT_ALIVE_DISPOSED_INSTANCE_STATE) &#123;</span><br><span class="line">       std::cout &lt;&lt; &quot;instance is disposed&quot; &lt;&lt; std::endl;</span><br><span class="line">     &#125; else if (si.instance_state == DDS::NOT_ALIVE_NO_WRITERS_INSTANCE_STATE) &#123;</span><br><span class="line">       std::cout &lt;&lt; &quot;instance is unregistered&quot; &lt;&lt; std::endl;</span><br><span class="line">     &#125; else &#123;</span><br><span class="line">       std::cerr &lt;&lt; &quot;ERROR: received unknown instance state &quot;</span><br><span class="line">               &lt;&lt; si.instance_state &lt;&lt; std::endl;</span><br><span class="line">     &#125;</span><br><span class="line">	 </span><br><span class="line">   &#125; else if (status == DDS::RETCODE_NO_DATA) &#123;</span><br><span class="line">       cerr &lt;&lt; &quot;ERROR: reader received DDS::RETCODE_NO_DATA!&quot; &lt;&lt; std::endl;</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">       cerr &lt;&lt; &quot;ERROR: read Pos: Error: &quot; &lt;&lt;  status &lt;&lt; std::endl;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码将样本从数据读者中取出，如果成功并能返回有效数据，就打印出接收到数据的每一个字段。</p>
+<p>每当有样本数据到达时，该函数就会被调用。</p>
+<h2 id="实体清理"><a href="#实体清理" class="headerlink" title="实体清理"></a>实体清理</h2><p>在订阅完数据以后，需要清理与OpenDDS相关联的资源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">participant-&gt;delete_contained_entities();</span><br><span class="line">dpf-&gt;delete_participant(participant);</span><br><span class="line">TheServiceParticipant-&gt;shutdown ();</span><br></pre></td></tr></table></figure>
+
+<p>调用域参与者的delete_contained_entities()操作删除所有该参与者创建的主题、订阅者。一旦执行完该操作，就可以使用域参与者工厂删除域参与者了。</p>
+<h2 id="示例程序运行"><a href="#示例程序运行" class="headerlink" title="示例程序运行"></a>示例程序运行</h2><p>修改完以上代码并编译完成，就可以运行订阅端应用程序了，需要先运行DDS的信息仓库，开始中打开一个CMD窗口，执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%DDS_ROOT%/bin/DCPSInfoRepo -ORBEndpoint iiop://localhost:12345</span><br></pre></td></tr></table></figure>
+
+<p>再次打开一个CMD窗口，cd到Demo目录下，执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subscriber -DCPSInfoRepo corbaloc::localhost:12345/DCPSInfoRepo</span><br></pre></td></tr></table></figure>
+
+<p>至此，订阅端应用程序就开发完成并运行起来了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/" data-id="ck0gj591s000477dx9ks0a11z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于OpenDDS应用程序开发(2)公布端实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenDDS/">OpenDDS</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/">基于OpenDDS应用程序开发(2)公布端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/13/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

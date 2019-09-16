@@ -7,17 +7,17 @@
   
   <title>基于OpenDDS应用程序开发(1)IDL定义 | NoName 技术专栏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+  <meta name="description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 1、IDL定义：DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于OpenDDS应用程序开发(1)IDL定义">
-<meta property="og:url" content="http://lyingbo.com/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/index.html">
+<meta property="og:url" content="http://lyingbo.com/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/index.html">
 <meta property="og:site_name" content="NoName 技术专栏">
-<meta property="og:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+<meta property="og:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 1、IDL定义：DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和O">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-12T10:07:56.551Z">
+<meta property="og:updated_time" content="2019-09-16T10:17:54.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于OpenDDS应用程序开发(1)IDL定义">
-<meta name="twitter:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 IDL定义DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和Open">
+<meta name="twitter:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第一篇，主要介绍IDL的定义及编译。 1、IDL定义：DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。这些数据类型再由tao_idl编译器和O">
   
     <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
   
@@ -70,8 +70,8 @@
       <div class="outer">
         <section id="main"><article id="post-基于OpenDDS应用程序开发(1)IDL定义" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/" class="article-date">
-  <time datetime="2019-08-19T16:00:00.000Z" itemprop="datePublished">2019-08-20</time>
+    <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/" class="article-date">
+  <time datetime="2014-07-01T16:00:00.000Z" itemprop="datePublished">2014-07-02</time>
 </a>
     
   <div class="article-category">
@@ -96,14 +96,14 @@
       
         <p>连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。</p>
 <p>本文是第一篇，主要介绍IDL的定义及编译。</p>
-<h2 id="IDL定义"><a href="#IDL定义" class="headerlink" title="IDL定义"></a>IDL定义</h2><p>DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。<br>这些数据类型再由tao_idl编译器和OpenDDS_idl编译器进行预编译出来，生成用于网络传输这些数据类型的代码。</p>
+<h2 id="1、IDL定义："><a href="#1、IDL定义：" class="headerlink" title="1、IDL定义："></a>1、IDL定义：</h2><p>DDS中的数据类型需要通过IDL格式定义，OpenDDS使用#pragma关键字定义DDS传输和处理的数据类型。<br>这些数据类型再由tao_idl编译器和OpenDDS_idl编译器进行预编译出来，生成用于网络传输这些数据类型的代码。</p>
 <p>下面是一个定义Demo数据类型的IDL文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module Demo &#123;</span><br><span class="line"></span><br><span class="line">#pragma DCPS_DATA_TYPE &quot;Demo::Pos&quot;</span><br><span class="line">#pragma DCPS_DATA_KEY &quot;Demo::Pos.pos_id&quot;</span><br><span class="line"></span><br><span class="line">    struct Pos &#123;</span><br><span class="line">        long pos_id;</span><br><span class="line">        long pos_x;</span><br><span class="line">        long pos_y;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>IDL文件使用DCPS_DATA_TYPE定义一个结构体数据类型，IDL语法要求每个类型定义必须以该关键字开头。OpenDDS规定数据类型必须为一个结构体，结构体中可包含标量类型（short、long、float等）、枚举类型、字符串、队列、数组、结构体、以及它们的组合。本例中在demo模块中定义了一个结构体pos。</p>
 <p>使用DCPS_DATA_KEY定义一个数据类型的键，一种数据类型可以有0个或多个键，这些键用于区分同一个主题内的不同实体。每个键必须是数值型、枚举型、字符串或者这些类型的typedef。DCPS_DATA_KEY限定了作用域的数据类型以及成员名，成员名标识为该类型的键，多个键由多个DCPS_DATA_KEY指定。在上面的IDL定义中，指定了pos_id作为Demo::Pos的键。每个样本发布时带有一个唯一的pos_id值，这样就可以区分同一主题中的不同实例。由于使用了默认的QoS策略，随后带有相同pos_id值的样本就会替代先前的样本。</p>
 <p>其它类型，如结构体、序列和数组不能直接用来做key，但是当结构体的成员或数组中的元素是数值型、枚举型或者字符串型时可以。</p>
-<h2 id="IDL编译"><a href="#IDL编译" class="headerlink" title="IDL编译"></a>IDL编译</h2><p>IDL文件首先需要由tao_idl编译，以生成数据在网络上传输时打包解包的代码，该IDL编译器位于$ACE_ROOT/bin/目录下，运行命令如下：</p>
+<h2 id="2、IDL编译："><a href="#2、IDL编译：" class="headerlink" title="2、IDL编译："></a>2、IDL编译：</h2><p>IDL文件首先需要由tao_idl编译，以生成数据在网络上传输时打包解包的代码，该IDL编译器位于$ACE_ROOT/bin/目录下，运行命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tao_idl Demo.idl</span><br></pre></td></tr></table></figure>
 
 <p>该命令为每个IDL文件编译生成6个个文件，这6个文件的文件名均由原IDL文件名开头，如下所示：</p>
@@ -124,7 +124,7 @@
 
 <p>idl工程从父工程dcps继承，父工程dcps中定义了类型支持的编译规则，TypeSupport_Files部分告诉MPC，使用opendds_idl编译器从Demo.idl中生成类型支持文件。</p>
 <p>编写好mpc文件之后，就可以使用MPC命令来生成C/C++的编译配置文件了，(MPC工具可以生成很多种系统的编译工程，包括Windows的Visual Studio系列，Linux的Makefile等)，这里将Demo.idl文件和Demo.mpc文件放到Demo文件加下，使用如下命令来生成Vs2008的工程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl   mwc.pl  -type  vc9</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl mwc.pl -type vc9</span><br></pre></td></tr></table></figure>
 
 <p>命令执行完成后，会生成对应的Vs2008工程文件，包括vcproj和sln等，使用Vs2008打开Demo.sln就可以编译前面定义的idl文件，生成DemoC.cpp和DemoTypeSupport.idl等文件了。</p>
 <p>关于公布端和订阅端应用程序的开发请参见后续博文。</p>
@@ -132,7 +132,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/" data-id="ck0gj5915000177dxoytab1xj" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/" data-id="ck0ma3hfp00035ndxr2lnr9kz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,7 +141,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2014/07/10/基于OpenDDS应用程序开发(2)公布端实现/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -151,9 +151,9 @@
     </a>
   
   
-    <a href="/2019/08/13/基于Docker搭建Hadoop集群/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2014/03/06/OpenDDS环境搭建/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">基于Docker搭建Hadoop集群</div>
+      <div class="article-nav-title">OpenDDS环境搭建</div>
     </a>
   
 </nav>
@@ -184,7 +184,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -197,19 +197,23 @@
       <ul>
         
           <li>
-            <a href="/2019/09/03/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+            <a href="/2019/06/14/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
           </li>
         
           <li>
-            <a href="/2019/08/27/基于OpenDDS应用程序开发(2)公布端实现/">基于OpenDDS应用程序开发(2)公布端实现</a>
+            <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
           </li>
         
           <li>
-            <a href="/2019/08/20/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
+            <a href="/2014/07/10/基于OpenDDS应用程序开发(2)公布端实现/">基于OpenDDS应用程序开发(2)公布端实现</a>
           </li>
         
           <li>
-            <a href="/2019/08/13/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+            <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/06/OpenDDS环境搭建/">OpenDDS环境搭建</a>
           </li>
         
       </ul>

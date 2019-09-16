@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>OpenDDS环境搭建 | NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenDDS环境搭建">
+<meta property="og:url" content="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-16T10:18:18.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenDDS环境搭建">
+<meta name="twitter:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OpenDDS环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/06/OpenDDS环境搭建/" class="article-date">
+  <time datetime="2014-03-05T16:00:00.000Z" itemprop="datePublished">2014-03-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenDDS/">OpenDDS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenDDS环境搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下：</p>
+<h2 id="1、下载ACE和DDS源码："><a href="#1、下载ACE和DDS源码：" class="headerlink" title="1、下载ACE和DDS源码："></a>1、下载ACE和DDS源码：</h2><p>  ACE源码：<a href="http://www.theaceorb.com/downloads" target="_blank" rel="noopener">http://www.theaceorb.com/downloads</a><br>  DDS源码：<a href="http://download.ociweb.com/OpenDDS" target="_blank" rel="noopener">http://download.ociweb.com/OpenDDS</a></p>
+<h2 id="2、拷贝源码包到-WorkSpace目录："><a href="#2、拷贝源码包到-WorkSpace目录：" class="headerlink" title="2、拷贝源码包到/WorkSpace目录："></a>2、拷贝源码包到/WorkSpace目录：</h2><p>切换到root用户，在根目下创建WorkSpace目录，为WorkSpace目录给所有用户添加+w权限(chmod +w)，再切回到原来的DDS用户，将下载的ACE和DDS源码拷贝到WorkSpace目录下并解压，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cp ACE+TAO-2.2a.tar.gz /WorkSpace</span><br><span class="line">$cp OpenDDS3.5.tar.gz   /WorkSpace</span><br><span class="line">$cd /WorkSpace</span><br><span class="line">$tar –xzvf ACE+TAO-6.1.0.tar.gz</span><br><span class="line">$tar –xzvf OpenDDS3.5.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、配置ACE和DDS环境变量："><a href="#3、配置ACE和DDS环境变量：" class="headerlink" title="3、配置ACE和DDS环境变量："></a>3、配置ACE和DDS环境变量：</h2><p>在/home/DDS/.bashrc文件最后加入下面几行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ACE_ROOT=/WorkSpace/ACE_wrappers</span><br><span class="line">export TAO_ROOT=$ACE_ROOT/TAO</span><br><span class="line">export DDS_ROOT=/WorkSpace/DDS</span><br><span class="line">export PATH=$ACE_ROOT/bin: $DDS_ROOT/bin:$PATH</span><br><span class="line">export LD_LIBRARY_PATH=$ACE_ROOT/lib:$DDS_ROOT/lib:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+
+<p>使用source /home/DDS/.bashrc命令或者重新登陆终端使环境变量生效</p>
+<h2 id="4、准备系统相关配置文件："><a href="#4、准备系统相关配置文件：" class="headerlink" title="4、准备系统相关配置文件："></a>4、准备系统相关配置文件：</h2><p>创建文件/WorkSpace/ACE_wrappers/ace/config.h，写入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;ace/config-linux.h&quot;</span><br></pre></td></tr></table></figure>
+
+<p>创建文件/WorkSpace/ACE_wrappers/include/makeinclude/platform_macros.GNU，写入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">debug=0</span><br><span class="line">include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、编译ACE和DDS源码："><a href="#5、编译ACE和DDS源码：" class="headerlink" title="5、编译ACE和DDS源码："></a>5、编译ACE和DDS源码：</h2><p>由于ACE+TAO以及DDS源码中提供了许多测试程序，如果所有源码都编译，将非常耗时，可以只编译ACE+TAO中会被DDS用到的部分，以及DDS的核心部分源码。如此，就需要手动重新生成makefile文件，这里可以借助ACE的MPC工具来完成，先在$DDS_ROOT目录下编写一个DDS_TAO_Simple.mwc文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">workspace &#123;</span><br><span class="line">  $(ACE_ROOT)/ace/ace.mpc</span><br><span class="line">  $(ACE_ROOT)/apps/gperf/src</span><br><span class="line">  $(TAO_ROOT)/TAO_IDL</span><br><span class="line">  $(TAO_ROOT)/tao/tao.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/AnyTypeCode/AnyTypeCode.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/Codeset/Codeset.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/IORTable/IORTable.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/PortableServer/PortableServer.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/IORManipulation/IORManipulation.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/ImR_Client/ImR_Client.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/PI/PI.mpc</span><br><span class="line">  $(TAO_ROOT)/tao/CodecFactory/CodecFactory.mpc</span><br><span class="line">  $(TAO_ROOT)/orbsvcs/orbsvcs/Svc_Utils.mpc</span><br><span class="line">  dds</span><br><span class="line"></span><br><span class="line">  exclude &#123;</span><br><span class="line">    dds/DCPS/QOS_XML_Handler</span><br><span class="line">    DevGuideExamples</span><br><span class="line">    tools</span><br><span class="line">    java</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后在$DDS_ROOT目录下使用mwc.pl -type gnuace DDS_TAO_Simple.mwc -include $DDS_ROOT/MPC/config命令就可以生成需要的makefile了。</p>
+<p>之后执行(cd $DDS_ROOT; make clean &amp;&amp; make) 1&gt; make-dds.log 2&gt;make-dds-err.log命令完成ACE和DDS的编译，如果编译出错，可以查看log文件的编译过程，待脚本运行完成，整个OpenDDS的开发环境就搭建好了，可以用来进行基于OpenDDS的二次开发了。</p>
+<p>如果需要运行DDS的测试程序，cd到测试程序源码目录使用make命令就可以编译执行了。</p>
+<p>有关OpenDDS的相关问题欢迎发送邮件至<a href="mailto:lyingbo@aliyun.com" target="_blank" rel="noopener">lyingbo@aliyun.com</a>一起讨论</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0ma3hfc00005ndxv304r8ye" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于OpenDDS应用程序开发(1)IDL定义
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenDDS/">OpenDDS</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/14/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/10/基于OpenDDS应用程序开发(2)公布端实现/">基于OpenDDS应用程序开发(2)公布端实现</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/06/OpenDDS环境搭建/">OpenDDS环境搭建</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

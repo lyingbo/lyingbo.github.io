@@ -7,17 +7,18 @@
   
   <title>OpenDDS环境搭建 | NoName 技术专栏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+  <meta name="description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：ACE源码：http://www.theaceorb.com/downloadsDDS源码：http://download.ociweb.co">
+<meta name="keywords" content="OpenDDS ACE TAO MPC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenDDS环境搭建">
 <meta property="og:url" content="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/index.html">
 <meta property="og:site_name" content="NoName 技术专栏">
-<meta property="og:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+<meta property="og:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：ACE源码：http://www.theaceorb.com/downloadsDDS源码：http://download.ociweb.co">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-16T10:18:18.660Z">
+<meta property="og:updated_time" content="2019-09-17T09:58:18.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenDDS环境搭建">
-<meta name="twitter:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：  ACE源码：http://www.theaceorb.com/downloads  DDS源码：http://download.ociwe">
+<meta name="twitter:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：ACE源码：http://www.theaceorb.com/downloadsDDS源码：http://download.ociweb.co">
   
     <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
   
@@ -95,7 +96,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下：</p>
-<h2 id="1、下载ACE和DDS源码："><a href="#1、下载ACE和DDS源码：" class="headerlink" title="1、下载ACE和DDS源码："></a>1、下载ACE和DDS源码：</h2><p>  ACE源码：<a href="http://www.theaceorb.com/downloads" target="_blank" rel="noopener">http://www.theaceorb.com/downloads</a><br>  DDS源码：<a href="http://download.ociweb.com/OpenDDS" target="_blank" rel="noopener">http://download.ociweb.com/OpenDDS</a></p>
+<h2 id="1、下载ACE和DDS源码："><a href="#1、下载ACE和DDS源码：" class="headerlink" title="1、下载ACE和DDS源码："></a>1、下载ACE和DDS源码：</h2><p>ACE源码：<a href="http://www.theaceorb.com/downloads" target="_blank" rel="noopener">http://www.theaceorb.com/downloads</a><br>DDS源码：<a href="http://download.ociweb.com/OpenDDS" target="_blank" rel="noopener">http://download.ociweb.com/OpenDDS</a></p>
 <h2 id="2、拷贝源码包到-WorkSpace目录："><a href="#2、拷贝源码包到-WorkSpace目录：" class="headerlink" title="2、拷贝源码包到/WorkSpace目录："></a>2、拷贝源码包到/WorkSpace目录：</h2><p>切换到root用户，在根目下创建WorkSpace目录，为WorkSpace目录给所有用户添加+w权限(chmod +w)，再切回到原来的DDS用户，将下载的ACE和DDS源码拷贝到WorkSpace目录下并解压，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cp ACE+TAO-2.2a.tar.gz /WorkSpace</span><br><span class="line">$cp OpenDDS3.5.tar.gz   /WorkSpace</span><br><span class="line">$cd /WorkSpace</span><br><span class="line">$tar –xzvf ACE+TAO-6.1.0.tar.gz</span><br><span class="line">$tar –xzvf OpenDDS3.5.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -120,9 +121,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0ma3hfc00005ndxv304r8ye" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0no6x7c00006wdxfx2wszc0" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS-ACE-TAO-MPC/">OpenDDS ACE TAO MPC</a></li></ul>
+
     </footer>
   </div>
   
@@ -159,15 +162,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker-Hadoop-Cluster/">Docker Hadoop Cluster</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-ACE-TAO-MPC/">OpenDDS ACE TAO MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-IDL-ACE-TAO-MPC/">OpenDDS IDL ACE TAO MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Publisher-MPC/">OpenDDS Publisher MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Qos/">OpenDDS Qos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Subscriber-MPC/">OpenDDS Subscriber MPC</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker-Hadoop-Cluster/" style="font-size: 10px;">Docker Hadoop Cluster</a> <a href="/tags/OpenDDS-ACE-TAO-MPC/" style="font-size: 10px;">OpenDDS ACE TAO MPC</a> <a href="/tags/OpenDDS-IDL-ACE-TAO-MPC/" style="font-size: 10px;">OpenDDS IDL ACE TAO MPC</a> <a href="/tags/OpenDDS-Publisher-MPC/" style="font-size: 10px;">OpenDDS Publisher MPC</a> <a href="/tags/OpenDDS-Qos/" style="font-size: 10px;">OpenDDS Qos</a> <a href="/tags/OpenDDS-Subscriber-MPC/" style="font-size: 10px;">OpenDDS Subscriber MPC</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -184,6 +201,10 @@
           </li>
         
           <li>
+            <a href="/2014/09/16/OpenDDS之Qos策略(1)/">OpenDDS之Qos策略(1)</a>
+          </li>
+        
+          <li>
             <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
           </li>
         
@@ -193,10 +214,6 @@
         
           <li>
             <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
-          </li>
-        
-          <li>
-            <a href="/2014/03/06/OpenDDS环境搭建/">OpenDDS环境搭建</a>
           </li>
         
       </ul>

@@ -8,13 +8,14 @@
   <title>基于OpenDDS应用程序开发(3)订阅端实现 | NoName 技术专栏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 1、新建订阅端工程：参考前一博文中MPC的用法，在D">
+<meta name="keywords" content="OpenDDS Subscriber MPC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于OpenDDS应用程序开发(3)订阅端实现">
 <meta property="og:url" content="http://lyingbo.com/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/index.html">
 <meta property="og:site_name" content="NoName 技术专栏">
 <meta property="og:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 1、新建订阅端工程：参考前一博文中MPC的用法，在D">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-16T10:17:34.264Z">
+<meta property="og:updated_time" content="2019-09-17T09:58:18.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于OpenDDS应用程序开发(3)订阅端实现">
 <meta name="twitter:description" content="连续的三篇博文演示如何基于OpenDDS开发应用程序，将数据从发布端节点发送到订阅端节点，该示例程序由一个发布者发布数据，一个订阅者订阅数据，使用默认的QoS策略和TCP/IP传输方式。 本文是第三篇，主要介绍开发一个简单的OpenDDS订阅端应用程序所涉及的步骤。省略一些不重要部分(如:#include部分和异常处理等)代码，只写出关键代码。 1、新建订阅端工程：参考前一博文中MPC的用法，在D">
@@ -139,24 +140,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subscriber -DCPSInfoRepo corbaloc::localhost:12345/DCPSInfoRepo</span><br></pre></td></tr></table></figure>
 
 <p>至此，订阅端应用程序就开发完成并运行起来了。</p>
+<p>有关OpenDDS的相关问题欢迎发送邮件至<a href="mailto:lyingbo@aliyun.com" target="_blank" rel="noopener">lyingbo@aliyun.com</a>一起讨论</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/" data-id="ck0ma3hft00055ndxmtbaa19u" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/" data-id="ck0no6x7x00066wdx5ta9t0e1" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS-Subscriber-MPC/">OpenDDS Subscriber MPC</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2019/06/14/基于Docker搭建Hadoop集群/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2014/09/16/OpenDDS之Qos策略(1)/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          基于Docker搭建Hadoop集群
+          OpenDDS之Qos策略(1)
         
       </div>
     </a>
@@ -187,15 +191,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker-Hadoop-Cluster/">Docker Hadoop Cluster</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-ACE-TAO-MPC/">OpenDDS ACE TAO MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-IDL-ACE-TAO-MPC/">OpenDDS IDL ACE TAO MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Publisher-MPC/">OpenDDS Publisher MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Qos/">OpenDDS Qos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS-Subscriber-MPC/">OpenDDS Subscriber MPC</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker-Hadoop-Cluster/" style="font-size: 10px;">Docker Hadoop Cluster</a> <a href="/tags/OpenDDS-ACE-TAO-MPC/" style="font-size: 10px;">OpenDDS ACE TAO MPC</a> <a href="/tags/OpenDDS-IDL-ACE-TAO-MPC/" style="font-size: 10px;">OpenDDS IDL ACE TAO MPC</a> <a href="/tags/OpenDDS-Publisher-MPC/" style="font-size: 10px;">OpenDDS Publisher MPC</a> <a href="/tags/OpenDDS-Qos/" style="font-size: 10px;">OpenDDS Qos</a> <a href="/tags/OpenDDS-Subscriber-MPC/" style="font-size: 10px;">OpenDDS Subscriber MPC</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -212,6 +230,10 @@
           </li>
         
           <li>
+            <a href="/2014/09/16/OpenDDS之Qos策略(1)/">OpenDDS之Qos策略(1)</a>
+          </li>
+        
+          <li>
             <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
           </li>
         
@@ -221,10 +243,6 @@
         
           <li>
             <a href="/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/">基于OpenDDS应用程序开发(1)IDL定义</a>
-          </li>
-        
-          <li>
-            <a href="/2014/03/06/OpenDDS环境搭建/">OpenDDS环境搭建</a>
           </li>
         
       </ul>

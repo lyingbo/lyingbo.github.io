@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="NoName 技术专栏">
 <meta property="og:description" content="简介OpenDDS对DDS规范（OMG Document formal/07-01-01）定义的22种QoS策略全部支持。 应用程序通过参与者的QoS约束，来指定需要的行为，然后由DDS的服务决定如何实现这些行为，这些策略应用于所有DDS实体（主题、数据写者、数据读者、发布者、订阅者、域参与者），但不是所有的策略都适用于所有的实体类型。 发布者和订阅者通过RxO模式相匹配，订阅者请求一组策略，发布">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-17T10:41:31.943Z">
+<meta property="og:updated_time" content="2019-09-18T05:35:20.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenDDS之Qos策略(1)">
 <meta name="twitter:description" content="简介OpenDDS对DDS规范（OMG Document formal/07-01-01）定义的22种QoS策略全部支持。 应用程序通过参与者的QoS约束，来指定需要的行为，然后由DDS的服务决定如何实现这些行为，这些策略应用于所有DDS实体（主题、数据写者、数据读者、发布者、订阅者、域参与者），但不是所有的策略都适用于所有的实体类型。 发布者和订阅者通过RxO模式相匹配，订阅者请求一组策略，发布">
@@ -115,19 +115,19 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>USER_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>ENTITY_FACTORY</td>
-<td align="center">autoenable_created_entities</td>
-<td align="right">true</td>
+<td>autoenable_created_entities</td>
+<td>true</td>
 </tr>
 </tbody></table>
 <p>表2、默认主题QoS策略</p>
@@ -135,154 +135,154 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>TOPIC_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>DURABILITY</td>
-<td align="center">kind</td>
-<td align="right">VOLATILE_DURABILITY_QOS</td>
+<td>kind</td>
+<td>VOLATILE_DURABILITY_QOS</td>
 </tr>
 <tr>
 <td>DURABILITY_SERVICE</td>
-<td align="center">service_cleanup_delay.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td>service_cleanup_delay.sec</td>
+<td>DURATION_ZERO_SEC</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">service_cleanup_delay.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
+<td></td>
+<td>service_cleanup_delay.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">history_kind</td>
-<td align="right">KEEP_LAST_HISTORY_QOS</td>
+<td></td>
+<td>history_kind</td>
+<td>KEEP_LAST_HISTORY_QOS</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">history_depth</td>
-<td align="right">1</td>
+<td></td>
+<td>history_depth</td>
+<td>1</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_samples</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_samples</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_instances</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_instances</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_samples_per_instance</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_samples_per_instance</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
 <td>DEADLINE</td>
-<td align="center">period.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>period.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>DEADLINE</td>
-<td align="center">period.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>LATENCY_BUDGET</td>
-<td align="center">duration.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td></td>
+<td>period.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>LATENCY_BUDGET</td>
-<td align="center">duration.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
+<td>duration.sec</td>
+<td>DURATION_ZERO_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>duration.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
 <td>LIVELINESS</td>
-<td align="center">kind</td>
-<td align="right">AUTOMATIC_LIVELINESS_QOS</td>
+<td>kind</td>
+<td>AUTOMATIC_LIVELINESS_QOS</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td></td>
+<td>lease_duration.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>RELIABILITY</td>
-<td align="center">kind</td>
-<td align="right">BEST_EFFORT_RELIABILITY_QOS</td>
+<td></td>
+<td>lease_duration.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>RELIABILITY</td>
-<td align="center">max_blocking_time.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>kind</td>
+<td>BEST_EFFORT_RELIABILITY_QOS</td>
 </tr>
 <tr>
-<td>RELIABILITY</td>
-<td align="center">max_blocking_time.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td></td>
+<td>max_blocking_time.sec</td>
+<td>DURATION_INFINITY_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>max_blocking_time.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>DESTINATION_ORDER</td>
-<td align="center">kind</td>
-<td align="right">BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
+<td>kind</td>
+<td>BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
 </tr>
 <tr>
 <td>HISTORY</td>
-<td align="center">kind</td>
-<td align="right">KEEP_LAST_HISTORY_QOS</td>
+<td>kind</td>
+<td>KEEP_LAST_HISTORY_QOS</td>
 </tr>
 <tr>
-<td>HISTORY</td>
-<td align="center">depth</td>
-<td align="right">1</td>
-</tr>
-<tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>depth</td>
+<td>1</td>
 </tr>
 <tr>
 <td>RESOURCE_LIMITS</td>
-<td align="center">max_instances</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td>max_samples</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples_per_instance</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_instances</td>
+<td>LENGTH_UNLIMITED</td>
+</tr>
+<tr>
+<td></td>
+<td>max_samples_per_instance</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
 <td>TRANSPORT_PRIORITY</td>
-<td align="center">value</td>
-<td align="right">0</td>
+<td>value</td>
+<td>0</td>
 </tr>
 <tr>
 <td>LIFESPAN</td>
-<td align="center">duration.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>duration.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>LIFESPAN</td>
-<td align="center">duration.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td></td>
+<td>duration.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>OWNERSHIP</td>
-<td align="center">kind</td>
-<td align="right">SHARED_OWNERSHIP_QOS</td>
+<td>kind</td>
+<td>SHARED_OWNERSHIP_QOS</td>
 </tr>
 </tbody></table>
 <p>表3、默认发布者QoS策略</p>
@@ -290,39 +290,39 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>PRESENTATION</td>
-<td align="center">access_scope</td>
-<td align="right">INSTANCE_PRESENTATION_QOS</td>
+<td>access_scope</td>
+<td>INSTANCE_PRESENTATION_QOS</td>
 </tr>
 <tr>
-<td>PRESENTATION</td>
-<td align="center">coherent_access</td>
-<td align="right">0</td>
+<td></td>
+<td>coherent_access</td>
+<td>0</td>
 </tr>
 <tr>
-<td>PRESENTATION</td>
-<td align="center">ordered_access</td>
-<td align="right">0</td>
+<td></td>
+<td>ordered_access</td>
+<td>0</td>
 </tr>
 <tr>
 <td>PARTITION</td>
-<td align="center">name</td>
-<td align="right">(empty sequence)</td>
+<td>name</td>
+<td>(empty sequence)</td>
 </tr>
 <tr>
 <td>GROUP_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>ENTITY_FACTORY</td>
-<td align="center">autoenable_created_entities</td>
-<td align="right">true</td>
+<td>autoenable_created_entities</td>
+<td>true</td>
 </tr>
 </tbody></table>
 <p>表4、默认订阅者QoS策略</p>
@@ -330,39 +330,39 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>PRESENTATION</td>
-<td align="center">access_scope</td>
-<td align="right">INSTANCE_PRESENTATION_QOS</td>
+<td>access_scope</td>
+<td>INSTANCE_PRESENTATION_QOS</td>
 </tr>
 <tr>
-<td>PRESENTATION</td>
-<td align="center">coherent_access</td>
-<td align="right">0</td>
+<td></td>
+<td>coherent_access</td>
+<td>0</td>
 </tr>
 <tr>
-<td>PRESENTATION</td>
-<td align="center">ordered_access</td>
-<td align="right">0</td>
+<td></td>
+<td>ordered_access</td>
+<td>0</td>
 </tr>
 <tr>
 <td>PARTITION</td>
-<td align="center">name</td>
-<td align="right">(empty sequence)</td>
+<td>name</td>
+<td>(empty sequence)</td>
 </tr>
 <tr>
 <td>GROUP_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>ENTITY_FACTORY</td>
-<td align="center">autoenable_created_entities</td>
-<td align="right">true</td>
+<td>autoenable_created_entities</td>
+<td>true</td>
 </tr>
 </tbody></table>
 <p>表5、默认数据写者QoS策略</p>
@@ -370,164 +370,164 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>DESTINATION_ORDER</td>
-<td align="center">kind</td>
-<td align="right">BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
+<td>kind</td>
+<td>BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
 </tr>
 <tr>
 <td>HISTORY</td>
-<td align="center">kind</td>
-<td align="right">KEEP_LAST_HISTORY_QOS</td>
+<td>kind</td>
+<td>KEEP_LAST_HISTORY_QOS</td>
 </tr>
 <tr>
-<td>HISTORY</td>
-<td align="center">depth</td>
-<td align="right">1</td>
-</tr>
-<tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>depth</td>
+<td>1</td>
 </tr>
 <tr>
 <td>RESOURCE_LIMITS</td>
-<td align="center">max_instances</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td>max_samples</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples_per_instance</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_instances</td>
+<td>LENGTH_UNLIMITED</td>
+</tr>
+<tr>
+<td></td>
+<td>max_samples_per_instance</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
 <td>TRANSPORT_PRIORITY</td>
-<td align="center">value</td>
-<td align="right">0</td>
+<td>value</td>
+<td>0</td>
 </tr>
 <tr>
 <td>LIFESPAN</td>
-<td align="center">duration.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>duration.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>LIFESPAN</td>
-<td align="center">duration.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td></td>
+<td>duration.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>USER_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>OWNERSHIP</td>
-<td align="center">kind</td>
-<td align="right">SHARED_OWNERSHIP_QOS</td>
+<td>kind</td>
+<td>SHARED_OWNERSHIP_QOS</td>
 </tr>
 <tr>
 <td>OWNERSHIP_STRENGTH</td>
-<td align="center">value</td>
-<td align="right">0</td>
+<td>value</td>
+<td>0</td>
 </tr>
 <tr>
 <td>WRITER_DATA_LIFECYCLE</td>
-<td align="center">autodispose_unregistered_instances</td>
-<td align="right">1</td>
+<td>autodispose_unregistered_instances</td>
+<td>1</td>
 </tr>
 <tr>
 <td>DURABILITY</td>
-<td align="center">kind</td>
-<td align="right">VOLATILE_DURABILITY_QOS</td>
+<td>kind</td>
+<td>VOLATILE_DURABILITY_QOS</td>
 </tr>
 <tr>
 <td>DURABILITY_SERVICE</td>
-<td align="center">service_cleanup_delay.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td>service_cleanup_delay.sec</td>
+<td>DURATION_ZERO_SEC</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">service_cleanup_delay.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
+<td></td>
+<td>service_cleanup_delay.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">history_kind</td>
-<td align="right">KEEP_LAST_HISTORY_QOS</td>
+<td></td>
+<td>history_kind</td>
+<td>KEEP_LAST_HISTORY_QOS</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">history_depth</td>
-<td align="right">1</td>
+<td></td>
+<td>history_depth</td>
+<td>1</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_samples</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_samples</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_instances</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_instances</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>DURABILITY_SERVICE</td>
-<td align="center">max_samples_per_instance</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_samples_per_instance</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
 <td>DEADLINE</td>
-<td align="center">period.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>period.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>DEADLINE</td>
-<td align="center">period.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>LATENCY_BUDGET</td>
-<td align="center">duration.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td></td>
+<td>period.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>LATENCY_BUDGET</td>
-<td align="center">duration.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
+<td>duration.sec</td>
+<td>DURATION_ZERO_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>duration.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
 <td>LIVELINESS</td>
-<td align="center">kind</td>
-<td align="right">AUTOMATIC_LIVELINESS_QOS</td>
+<td>kind</td>
+<td>AUTOMATIC_LIVELINESS_QOS</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td></td>
+<td>lease_duration.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>RELIABILITY</td>
-<td align="center">kind</td>
-<td align="right">RELIABLE_RELIABILITY_QOS</td>
+<td></td>
+<td>lease_duration.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>RELIABILITY</td>
-<td align="center">max_blocking_time.sec</td>
-<td align="right">0</td>
+<td>kind</td>
+<td>RELIABLE_RELIABILITY_QOS</td>
 </tr>
 <tr>
-<td>RELIABILITY</td>
-<td align="center">max_blocking_time.nanosec</td>
-<td align="right">100000000 (100 ms)</td>
+<td></td>
+<td>max_blocking_time.sec</td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>max_blocking_time.nanosec</td>
+<td>100000000 (100 ms)</td>
 </tr>
 </tbody></table>
 <p>表6、默认数据读者QoS策略</p>
@@ -535,134 +535,134 @@
 <thead>
 <tr>
 <th>策略</th>
-<th align="center">成员</th>
-<th align="right">默认值</th>
+<th>成员</th>
+<th>默认值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>DURABILITY</td>
-<td align="center">kind</td>
-<td align="right">VOLATILE_DURABILITY_QOS</td>
+<td>kind</td>
+<td>VOLATILE_DURABILITY_QOS</td>
 </tr>
 <tr>
 <td>DEADLINE</td>
-<td align="center">period.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>period.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>DEADLINE</td>
-<td align="center">period.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>LATENCY_BUDGET</td>
-<td align="center">duration.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td></td>
+<td>period.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>LATENCY_BUDGET</td>
-<td align="center">duration.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
+<td>duration.sec</td>
+<td>DURATION_ZERO_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>duration.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
 <td>LIVELINESS</td>
-<td align="center">kind</td>
-<td align="right">AUTOMATIC_LIVELINESS_QOS</td>
+<td>kind</td>
+<td>AUTOMATIC_LIVELINESS_QOS</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td></td>
+<td>lease_duration.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>LIVELINESS</td>
-<td align="center">lease_duration.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
-</tr>
-<tr>
-<td>RELIABILITY</td>
-<td align="center">kind</td>
-<td align="right">BEST_EFFORT_RELIABILITY_QOS</td>
+<td></td>
+<td>lease_duration.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>RELIABILITY</td>
-<td align="center">max_blocking_time.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td>kind</td>
+<td>BEST_EFFORT_RELIABILITY_QOS</td>
 </tr>
 <tr>
-<td>RELIABILITY</td>
-<td align="center">max_blocking_time.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td></td>
+<td>max_blocking_time.sec</td>
+<td>DURATION_INFINITY_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>max_blocking_time.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
 <td>DESTINATION_ORDER</td>
-<td align="center">kind</td>
-<td align="right">BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
+<td>kind</td>
+<td>BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS</td>
 </tr>
 <tr>
 <td>HISTORY</td>
-<td align="center">kind</td>
-<td align="right">KEEP_LAST_HISTORY_QOS</td>
+<td>kind</td>
+<td>KEEP_LAST_HISTORY_QOS</td>
 </tr>
 <tr>
-<td>HISTORY</td>
-<td align="center">depth</td>
-<td align="right">1</td>
-</tr>
-<tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>depth</td>
+<td>1</td>
 </tr>
 <tr>
 <td>RESOURCE_LIMITS</td>
-<td align="center">max_instances</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td>max_samples</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
-<td>RESOURCE_LIMITS</td>
-<td align="center">max_samples_per_instance</td>
-<td align="right">LENGTH_UNLIMITED</td>
+<td></td>
+<td>max_instances</td>
+<td>LENGTH_UNLIMITED</td>
+</tr>
+<tr>
+<td></td>
+<td>max_samples_per_instance</td>
+<td>LENGTH_UNLIMITED</td>
 </tr>
 <tr>
 <td>USER_DATA</td>
-<td align="center">value</td>
-<td align="right">(not set)</td>
+<td>value</td>
+<td>(not set)</td>
 </tr>
 <tr>
 <td>OWNERSHIP</td>
-<td align="center">kind</td>
-<td align="right">SHARED_OWNERSHIP_QOS</td>
+<td>kind</td>
+<td>SHARED_OWNERSHIP_QOS</td>
 </tr>
 <tr>
 <td>TIME_BASED_FILTER</td>
-<td align="center">minimum_separation.sec</td>
-<td align="right">DURATION_ZERO_SEC</td>
+<td>minimum_separation.sec</td>
+<td>DURATION_ZERO_SEC</td>
 </tr>
 <tr>
-<td>TIME_BASED_FILTER</td>
-<td align="center">minimum_separation.nanosec</td>
-<td align="right">DURATION_ZERO_NSEC</td>
-</tr>
-<tr>
-<td>READER_DATA_LIFECYCLE</td>
-<td align="center">autopurge_nowriter_samples_delay.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td></td>
+<td>minimum_separation.nanosec</td>
+<td>DURATION_ZERO_NSEC</td>
 </tr>
 <tr>
 <td>READER_DATA_LIFECYCLE</td>
-<td align="center">autopurge_nowriter_samples_delay.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td>autopurge_nowriter_samples_delay.sec</td>
+<td>DURATION_INFINITY_SEC</td>
 </tr>
 <tr>
-<td>READER_DATA_LIFECYCLE</td>
-<td align="center">autopurge_disposed_samples_delay.sec</td>
-<td align="right">DURATION_INFINITY_SEC</td>
+<td></td>
+<td>autopurge_nowriter_samples_delay.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 <tr>
-<td>READER_DATA_LIFECYCLE</td>
-<td align="center">autopurge_disposed_samples_delay.nanosec</td>
-<td align="right">DURATION_INFINITY_NSEC</td>
+<td></td>
+<td>autopurge_disposed_samples_delay.sec</td>
+<td>DURATION_INFINITY_SEC</td>
+</tr>
+<tr>
+<td></td>
+<td>autopurge_disposed_samples_delay.nanosec</td>
+<td>DURATION_INFINITY_NSEC</td>
 </tr>
 </tbody></table>
 <p>有关OpenDDS的相关问题欢迎发送邮件至<a href="mailto:lyingbo@aliyun.com" target="_blank" rel="noopener">lyingbo@aliyun.com</a>一起讨论</p>
@@ -670,7 +670,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/09/16/OpenDDS之Qos策略(1)/" data-id="ck0npjea6001hrddxikf3jit8" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/09/16/OpenDDS之Qos策略(1)/" data-id="ck0ou1fa4001h87dxr0w26of6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qos/">Qos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略说明/">策略说明</a></li></ul>

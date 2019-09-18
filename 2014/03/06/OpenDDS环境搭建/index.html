@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="NoName 技术专栏">
 <meta property="og:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：ACE源码：http://www.theaceorb.com/downloadsDDS源码：http://download.ociweb.co">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-09-17T10:41:31.939Z">
+<meta property="og:updated_time" content="2019-09-18T05:35:20.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenDDS环境搭建">
 <meta name="twitter:description" content="以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下： 1、下载ACE和DDS源码：ACE源码：http://www.theaceorb.com/downloadsDDS源码：http://download.ociweb.co">
@@ -98,7 +98,7 @@
         <p>以下以Linux系统下的用户DDS为例(关于Windows系统下的搭建过程，跟Linux系统步骤基本一样，请参考文后的评论)，编译OpenDDS源码需要ACE+TAO框架支持，因此需要先编译ACE+TAO的相关库，具体步骤如下：</p>
 <h2 id="1、下载ACE和DDS源码："><a href="#1、下载ACE和DDS源码：" class="headerlink" title="1、下载ACE和DDS源码："></a>1、下载ACE和DDS源码：</h2><p>ACE源码：<a href="http://www.theaceorb.com/downloads" target="_blank" rel="noopener">http://www.theaceorb.com/downloads</a><br>DDS源码：<a href="http://download.ociweb.com/OpenDDS" target="_blank" rel="noopener">http://download.ociweb.com/OpenDDS</a></p>
 <h2 id="2、拷贝源码包到-WorkSpace目录："><a href="#2、拷贝源码包到-WorkSpace目录：" class="headerlink" title="2、拷贝源码包到/WorkSpace目录："></a>2、拷贝源码包到/WorkSpace目录：</h2><p>切换到root用户，在根目下创建WorkSpace目录，为WorkSpace目录给所有用户添加+w权限(chmod +w)，再切回到原来的DDS用户，将下载的ACE和DDS源码拷贝到WorkSpace目录下并解压，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cp ACE+TAO-2.2a.tar.gz /WorkSpace</span><br><span class="line">$cp OpenDDS3.5.tar.gz   /WorkSpace</span><br><span class="line">$cd /WorkSpace</span><br><span class="line">$tar –xzvf ACE+TAO-6.1.0.tar.gz</span><br><span class="line">$tar –xzvf OpenDDS3.5.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp ACE+TAO-2.2a.tar.gz /WorkSpace</span><br><span class="line">cp OpenDDS3.5.tar.gz   /WorkSpace</span><br><span class="line">cd /WorkSpace</span><br><span class="line">tar –xzvf ACE+TAO-6.1.0.tar.gz</span><br><span class="line">tar –xzvf OpenDDS3.5.tar.gz</span><br></pre></td></tr></table></figure>
 
 <h2 id="3、配置ACE和DDS环境变量："><a href="#3、配置ACE和DDS环境变量：" class="headerlink" title="3、配置ACE和DDS环境变量："></a>3、配置ACE和DDS环境变量：</h2><p>在/home/DDS/.bashrc文件最后加入下面几行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ACE_ROOT=/WorkSpace/ACE_wrappers</span><br><span class="line">export TAO_ROOT=$ACE_ROOT/TAO</span><br><span class="line">export DDS_ROOT=/WorkSpace/DDS</span><br><span class="line">export PATH=$ACE_ROOT/bin: $DDS_ROOT/bin:$PATH</span><br><span class="line">export LD_LIBRARY_PATH=$ACE_ROOT/lib:$DDS_ROOT/lib:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
@@ -121,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0npje670000rddxe5h10gxu" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0ou1f8r000087dx0djh0xyr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPC/">MPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>

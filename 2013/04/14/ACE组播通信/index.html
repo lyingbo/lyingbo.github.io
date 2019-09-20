@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>ACE组播通信 | NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基于ACE的类ACE_SOCK_Dgram_Mcast封装来实现组播发送和接收的简单示例程序 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081">
+<meta name="keywords" content="ACE,组播通信,ace_sock_dgram_mcast">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ACE组播通信">
+<meta property="og:url" content="http://lyingbo.com/2013/04/14/ACE组播通信/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:description" content="基于ACE的类ACE_SOCK_Dgram_Mcast封装来实现组播发送和接收的简单示例程序 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-20T07:29:45.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ACE组播通信">
+<meta name="twitter:description" content="基于ACE的类ACE_SOCK_Dgram_Mcast封装来实现组播发送和接收的简单示例程序 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ACE组播通信" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/14/ACE组播通信/" class="article-date">
+  <time datetime="2013-04-13T16:00:00.000Z" itemprop="datePublished">2013-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/程序开发/">程序开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ACE组播通信
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基于ACE的类ACE_SOCK_Dgram_Mcast封装来实现组播发送和接收的简单示例程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">// ACE组播类 CMulticast 实现</span><br><span class="line"></span><br><span class="line">#include &quot;ace/OS_NS_unistd.h&quot;</span><br><span class="line">#include &quot;ace/INET_Addr.h&quot;</span><br><span class="line">#include &quot;ace/Truncate.h&quot;</span><br><span class="line">#include &quot;ace/Log_Msg.h&quot;</span><br><span class="line">#include &quot;ace/os_include/os_netdb.h&quot;</span><br><span class="line">#include &quot;ace/SOCK_Dgram_Mcast.h&quot;</span><br><span class="line"></span><br><span class="line">//  ACE组播 ip</span><br><span class="line">#define DEFAULT_MULTICAST_ADD &quot;239.192.2.3:12345&quot;</span><br><span class="line"></span><br><span class="line">//  ACE组播 TTL</span><br><span class="line">#define MAX_MULTICAST_IP_TTL  5</span><br><span class="line"></span><br><span class="line">class CMulticast</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">    CMulticast(const char address[]):</span><br><span class="line">     remote_addr_(u_short(0)), multicast_addr_(address)</span><br><span class="line">    &#123;</span><br><span class="line">       //  ACE组播加入组播组</span><br><span class="line">       if (-1 == mcast_dgram_.join(multicast_addr_))</span><br><span class="line">       &#123;</span><br><span class="line">           ACE_ERROR((LM_ERROR, ACE_TEXT(&quot;%p\n&quot;), &quot;join()&quot;));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       //  ACE组播 设置 TTL</span><br><span class="line">       if (-1 == mcast_dgram_.set_option(IP_MULTICAST_TTL, MAX_MULTICAST_IP_TTL))</span><br><span class="line">       &#123;</span><br><span class="line">           ACE_ERROR((LM_ERROR, ACE_TEXT(&quot;%p\n&quot;), &quot;set_option()&quot;));</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    CMulticast(void)&#123;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">    ssize_t recv_from_multicast_group(char *buf, size_t n)</span><br><span class="line">    &#123;</span><br><span class="line">       ssize_t ret = mcast_dgram_.recv(buf, n, remote_addr_);</span><br><span class="line"></span><br><span class="line">       char hostaddr[MAXHOSTNAME] = &#123;0&#125;;</span><br><span class="line">       remote_addr_.addr_to_string(hostaddr, MAXHOSTNAME);</span><br><span class="line">       cout&lt;&lt;&quot;recve from &quot;&lt;&lt;hostaddr&lt;&lt;&quot; data: &quot;&lt;&lt;buf&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">       return ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ssize_t send_to_multicast_group(const char *buf, size_t n)</span><br><span class="line">    &#123;</span><br><span class="line">       ssize_t ret = mcast_dgram_.send(buf, n);</span><br><span class="line"></span><br><span class="line">       char hostaddr[MAXHOSTNAME] = &#123;0&#125;;</span><br><span class="line">       multicast_addr_.addr_to_string(hostaddr, MAXHOSTNAME);</span><br><span class="line">       cout&lt;&lt;&quot;send to &quot;&lt;&lt;hostaddr&lt;&lt;&quot; data: &quot;&lt;&lt;buf&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">       return ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~CMulticast(void)</span><br><span class="line">    &#123;</span><br><span class="line">       // ACE组播离开组播组</span><br><span class="line">       if (-1 == mcast_dgram_.leave(multicast_addr_))</span><br><span class="line">       &#123;</span><br><span class="line">           ACE_ERROR((LM_ERROR, ACE_TEXT(&quot;%p\n&quot;), &quot;leave()&quot;));</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">   </span><br><span class="line">    ACE_INET_Addr        multicast_addr_; // 组播组地址</span><br><span class="line">    ACE_INET_Addr        remote_addr_;    // 远端地址</span><br><span class="line">    ACE_SOCK_Dgram_Mcast mcast_dgram_;    //</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//  ACE组播 发送端调用示例</span><br><span class="line"></span><br><span class="line">#include &quot;Multicast.h&quot;</span><br><span class="line"></span><br><span class="line">#define data[] = &quot;Hello, world!&quot;</span><br><span class="line"></span><br><span class="line">int ACE_TMAIN(int argc, ACE_TCHAR *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    CMulticast mcast(DEFAULT_MULTICAST_ADD);</span><br><span class="line">    while (-1 != mcast.send_to_multicast_group(data, sizeof(data)/sizeof(char)))</span><br><span class="line">    &#123;</span><br><span class="line">       ACE_OS::sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT(&quot;%p\n&quot;), &quot;send()&quot;), 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//  ACE组播 接收端调用示例</span><br><span class="line"></span><br><span class="line">#include &quot;Multicast.h&quot;</span><br><span class="line"></span><br><span class="line">int ACE_TMAIN(int argc, ACE_TCHAR *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    CMulticast mcast(DEFAULT_MULTICAST_ADD);</span><br><span class="line">    char buf[256] = &#123;0&#125;;</span><br><span class="line">    while (-1 != mcast.recv_from_multicast_group(buf, 255))</span><br><span class="line">    &#123;</span><br><span class="line">       ACE_OS::sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT(&quot;%p\n&quot;), &quot;recv()&quot;), 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有相关问题欢迎发送邮件至<a href="mailto:lyingbo@aliyun.com" target="_blank" rel="noopener">lyingbo@aliyun.com</a>一起讨论</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2013/04/14/ACE组播通信/" data-id="ck0rt0as800001ndx8rp00w4x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACE/">ACE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ace-sock-dgram-mcast/">ace_sock_dgram_mcast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组播通信/">组播通信</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/06/OpenDDS环境搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenDDS环境搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/04/25/MFC程序添加背景图片的方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MFC程序添加背景图片的方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenDDS/">OpenDDS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序开发/">程序开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACE/">ACE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cluster/">Cluster</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataNode/">DataNode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDL定义/">IDL定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDL编译/">IDL编译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MPC/">MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameNode/">NameNode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qos/">Qos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ace-sock-dgram-mcast/">ace_sock_dgram_mcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bmp/">bmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpg/">jpg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双缓存/">双缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/发布数据/">发布数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境搭建/">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/示例开发/">示例开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/策略说明/">策略说明</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组播通信/">组播通信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/订阅数据/">订阅数据</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACE/" style="font-size: 10px;">ACE</a> <a href="/tags/Cluster/" style="font-size: 10px;">Cluster</a> <a href="/tags/DataNode/" style="font-size: 10px;">DataNode</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/IDL定义/" style="font-size: 10px;">IDL定义</a> <a href="/tags/IDL编译/" style="font-size: 10px;">IDL编译</a> <a href="/tags/MFC/" style="font-size: 10px;">MFC</a> <a href="/tags/MPC/" style="font-size: 16.67px;">MPC</a> <a href="/tags/NameNode/" style="font-size: 10px;">NameNode</a> <a href="/tags/OpenDDS/" style="font-size: 20px;">OpenDDS</a> <a href="/tags/Qos/" style="font-size: 13.33px;">Qos</a> <a href="/tags/ace-sock-dgram-mcast/" style="font-size: 10px;">ace_sock_dgram_mcast</a> <a href="/tags/bmp/" style="font-size: 10px;">bmp</a> <a href="/tags/jpg/" style="font-size: 10px;">jpg</a> <a href="/tags/双缓存/" style="font-size: 10px;">双缓存</a> <a href="/tags/发布数据/" style="font-size: 10px;">发布数据</a> <a href="/tags/环境搭建/" style="font-size: 10px;">环境搭建</a> <a href="/tags/示例开发/" style="font-size: 13.33px;">示例开发</a> <a href="/tags/策略使用/" style="font-size: 13.33px;">策略使用</a> <a href="/tags/策略说明/" style="font-size: 13.33px;">策略说明</a> <a href="/tags/组播通信/" style="font-size: 10px;">组播通信</a> <a href="/tags/订阅数据/" style="font-size: 10px;">订阅数据</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/14/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/20/OpenDDS之Qos策略(3)/">OpenDDS之Qos策略(3)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/23/OpenDDS之Qos策略(2)/">OpenDDS之Qos策略(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/09/16/OpenDDS之Qos策略(1)/">OpenDDS之Qos策略(1)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>OpenDDS之Qos策略(3) | NoName 技术专栏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="OpenDDS主要支持22种Qos，前一篇OpenDDS之Qos策略(2)已对前12种Qos的具体内容作了介绍，接下来介绍下这剩下的10种Qos的具体内容以及用法。 13、TRANSPORT_PRIORITYTRANSPORT_PRIORITY策略主要应用于主题和数据写者实体，下面是TRANSPORT_PRIORITY QoS策略的IDL： 123struct TransportPriorityQ">
+<meta name="keywords" content="OpenDDS,Qos,策略说明,策略使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenDDS之Qos策略(3)">
+<meta property="og:url" content="http://lyingbo.com/2016/03/20/OpenDDS之Qos策略(3)/index.html">
+<meta property="og:site_name" content="NoName 技术专栏">
+<meta property="og:description" content="OpenDDS主要支持22种Qos，前一篇OpenDDS之Qos策略(2)已对前12种Qos的具体内容作了介绍，接下来介绍下这剩下的10种Qos的具体内容以及用法。 13、TRANSPORT_PRIORITYTRANSPORT_PRIORITY策略主要应用于主题和数据写者实体，下面是TRANSPORT_PRIORITY QoS策略的IDL： 123struct TransportPriorityQ">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-09-20T07:29:45.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenDDS之Qos策略(3)">
+<meta name="twitter:description" content="OpenDDS主要支持22种Qos，前一篇OpenDDS之Qos策略(2)已对前12种Qos的具体内容作了介绍，接下来介绍下这剩下的10种Qos的具体内容以及用法。 13、TRANSPORT_PRIORITYTRANSPORT_PRIORITY策略主要应用于主题和数据写者实体，下面是TRANSPORT_PRIORITY QoS策略的IDL： 123struct TransportPriorityQ">
+  
+    <link rel="alternate" href="/atom.xml" title="NoName 技术专栏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NoName 技术专栏</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术积累及分享</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lyingbo.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OpenDDS之Qos策略(3)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/20/OpenDDS之Qos策略(3)/" class="article-date">
+  <time datetime="2016-03-19T16:00:00.000Z" itemprop="datePublished">2016-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenDDS/">OpenDDS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenDDS之Qos策略(3)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>OpenDDS主要支持22种Qos，前一篇<a href="https://lyingbo.github.io/2015/11/23/OpenDDS%E4%B9%8BQos%E7%AD%96%E7%95%A5(2)" target="_blank" rel="noopener">OpenDDS之Qos策略(2)</a>已对前12种Qos的具体内容作了介绍，接下来介绍下这剩下的10种Qos的具体内容以及用法。</p>
+<h2 id="13、TRANSPORT-PRIORITY"><a href="#13、TRANSPORT-PRIORITY" class="headerlink" title="13、TRANSPORT_PRIORITY"></a>13、TRANSPORT_PRIORITY</h2><p>TRANSPORT_PRIORITY策略主要应用于主题和数据写者实体，下面是TRANSPORT_PRIORITY QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct TransportPriorityQosPolicy &#123;</span><br><span class="line">  long value;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>value的默认值是0。该策略用于指定传输层发送消息时采用的优先级，值越大，表示优先级越高。OpenDDS把优先级映射到线程的优先级和DiffServ码点值上。默认值为0表示发送消息时既不修改线程的优先级，也不修改DiffServ的码点值。</p>
+<p>OpenDDS支持设置发送线程的传输优先级和接收线程的传输优先级。传输优先级从0到最大值线性地映射0（默认）到最大线程优先级。如果最低传输优先级不是0，也映射为线程的优先级0。如果优先级在系统上出现倒置（数值越大优先级越低），OpenDDS将从0开始的增加的优先级。优先级比最低优先级还小则映射为最低优先级；如果高于线程最大优先级，则映射为最高优先级。</p>
+<p>在大部分操作系统中，只有进程调度器设置为允许时，才能修改线程的优先级。进程需要获得系统特权才能执行相应操作，在基于POSIX的系统中，系统调用sched_get_priority_min()和sched_get_priority_max()来检测系统的线程优先级范围。</p>
+<p>在传输层支持的前提下，OpenDDS将试图设置数据写者用来发送数据的套接字的DiffServ码点值。如果网络硬件支持码点值，越高的码点将具有越高的优先级，默认值0映射为码点值0（默认的）。优先级值从1到63会映射为相应的码点值，更高的取值都映射为最高值值63。OpenDDS当前版本不支持在创建数据写者之后修改transport_priority策略值。</p>
+<h2 id="14、LATENCY-BUDGET"><a href="#14、LATENCY-BUDGET" class="headerlink" title="14、LATENCY_BUDGET"></a>14、LATENCY_BUDGET</h2><p>LATENCY_BUDGET策略主要应用于主题，数据读者和数据写者实体，下面是LATENCY_BUDGET QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct LatencyBudgetQosPolicy &#123;</span><br><span class="line">  Duration_t duration;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>成员duration的默认值是0，表示延迟尽量小。该策略用来指示传输层发送样本的紧急程度。OpenDDS使用该值划分样本从发布者到订阅者之间的传输时间是否为不可接受的延迟间隔。目前，该策略仅适用于监视目的，若需要调节传输延迟可使用TRANSPORT_PRIORITY策略。数据写者仅使用duration做兼容性比较，如果该值为默认的0，所有向它请求的数据读者都认为是兼容的。</p>
+<p>为了统计超过duration策略设置的延迟数据，额外增加了一个监听者扩展接口。OpenDDS::DCPS::DataReaderListener额外提供了一个通知操作，当样本接收后测量的传输时延大于LATENCY_BUDGET策略的duration时，将会触发该操作，下面是该操作方法的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct BudgetExceededStatus &#123;</span><br><span class="line">  long total_count;</span><br><span class="line">  long total_count_change;</span><br><span class="line">  DDS::InstanceHandle_t last_instance_handle;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void on_budget_exceeded&#123;</span><br><span class="line">  in DDS::DataReader reader,</span><br><span class="line">  in BudgetExceededStatus status</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>要使用扩展的Listener回调，首先要从Listener实现中派生一个类，如下面代码段所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class DataReaderListenerImpl</span><br><span class="line">   : public virtual</span><br><span class="line">   OpenDDS::DCPS::LocalObject</span><br></pre></td></tr></table></figure>
+
+<p>接下来需要为on_budget_exceeded()操作提供一个非空的实现。需要注意的是，还需要为下面的扩展操作至少也提供一个空的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">on_subscription_disconnected()</span><br><span class="line">on_subscription_reconnected()</span><br><span class="line">on_subscription_lost()</span><br><span class="line">on_connection_deleted()</span><br></pre></td></tr></table></figure>
+
+<p>OpenDDS还通过数据读者的扩展接口，提供了延迟统计汇总的功能，该扩展接口在OpenDDS::DCPS模型中，其IDL定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">struct LatencyStatistics &#123;</span><br><span class="line">  GUID_t publication;</span><br><span class="line">  unsigned long n;</span><br><span class="line">  double maximum;</span><br><span class="line">  double minimum;</span><br><span class="line">  double mean;</span><br><span class="line">  double variance;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef sequence LatencyStatisticsSeq;</span><br><span class="line"></span><br><span class="line">local interface DataReaderEx : DDS::DataReader &#123;</span><br><span class="line"></span><br><span class="line">  // Obtain a sequence of statistics summaries.</span><br><span class="line">  void get_latency_stats( inout LatencyStatisticsSeq stats);</span><br><span class="line"></span><br><span class="line">  // Clear any intermediate statistical values.</span><br><span class="line">  void reset_latency_stats();</span><br><span class="line"></span><br><span class="line">  // Statistics gathering enable state.</span><br><span class="line">  attribute boolean statistics_enabled;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>为了活的统计信息，需要使用上述扩展接口。也可以通过对数据读者对象的指针类型做转换，然后直接调用相应的接口。参见下面的示例代码，假定reader已经通过调用create_datareader方法正确初始化了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">DDS::DataReader_var reader = DDS::Subscriber::create_datareader();</span><br><span class="line"></span><br><span class="line">// ...</span><br><span class="line">// To start collecting new data.</span><br><span class="line">dynamic_cast(reader.in())-&gt;reset_latency_stats();</span><br><span class="line">dynamic_cast(reader.in())-&gt;statistics_enabled(true);</span><br><span class="line"></span><br><span class="line">// ...</span><br><span class="line">// To collect data.</span><br><span class="line">OpenDDS::DCPS::LatencyStatisticsSeq stats;</span><br><span class="line">dynamic_cast(reader.in())-&gt;get_latency_stats(stats);</span><br><span class="line"></span><br><span class="line">for (unsigned long i = 0; i &lt; stats.length(); ++i) &#123;</span><br><span class="line">  std::cout &lt;&lt; &quot;stats[&quot; &lt;&lt; i &lt;&lt; &quot;]:&quot; &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot; n = &quot; &lt;&lt; stats[i].n &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot; max = &quot; &lt;&lt; stats[i].maximum &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot; min = &quot; &lt;&lt; stats[i].minimum &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot; mean = &quot; &lt;&lt; stats[i].mean &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot; variance = &quot; &lt;&lt; stats[i].variance &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="15、ENTITY-FACTORY"><a href="#15、ENTITY-FACTORY" class="headerlink" title="15、ENTITY_FACTORY"></a>15、ENTITY_FACTORY</h2><p>ENTITY_FACTORY策略控制实体创建时，是否可以自动激活，下面是关于ENTITY_FACTORY QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct EntityFactoryQosPolicy &#123;</span><br><span class="line">  boolean autoenable_created_entities;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>该策略可以应用到像工厂一样为其其它实体服务的实体，并且控制这些被工厂创建的实体是否自动激活。该策略可以应用于域参与者工厂（域参与者的工厂）、域参与者（发布者，订阅者，主题的工厂）、发布者（数据写者的工厂）、订阅者（数据读者的工厂）。该策略的默认值是true，表示工厂实体创建的其它实体可自动激活。如果应用程序希望这些实体可以在需要的时候才激活，可以把该策略的autoenable_created_entities成员的值设为false，然后手动调用实体的enable()操作来手动激活该实体。</p>
+<p>该策略的值可以在运行的时候修改，改变将只会影响那些在之后被创建的实体。</p>
+<h2 id="16、PRESENTATION"><a href="#16、PRESENTATION" class="headerlink" title="16、PRESENTATION"></a>16、PRESENTATION</h2><p>PRESENTATION QoS策略控制当订阅者具有一组读者时数据样本的展示顺序。它将影响实例的变化和一定范围内实例的展示顺序。另外，该策略还引入了连续变化集合的概念，下面是PRESENTATION QoS的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enum PresentationQosPolicyAccessScopeKind &#123;</span><br><span class="line">  INSTANCE_PRESENTATION_QOS,</span><br><span class="line">  TOPIC_PRESENTATION_QOS,</span><br><span class="line">  GROUP_PRESENTATION_QOS</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct PresentationQosPolicy &#123;</span><br><span class="line">  PresentationQosPolicyAccessScopeKind access_scope;</span><br><span class="line">  boolean coherent_access;</span><br><span class="line">  boolean ordered_access;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>实例改变的范围指的是在应用程序中可能涉及到的级别，分为以下几个：</p>
+<ul>
+<li>INSTANCE_PRESENTATION_QOS（默认值）表示实例变化之间是无关的。尽管可以设置coherent_access（连续访问）和ordered_access（顺序访问），但代表相应的操作为空，也就是说，设为这个级别后对订阅者没有影响。</li>
+<li>TOPIC_PRESENTATION_QOS表示获取的实例变化只限于相同的读者或写者。</li>
+<li>GROUP_PRESENTATION_QOS表示获取的实例变化限制在相同发布者或订阅者上的所有实例。</li>
+</ul>
+<p>coherent_access允许在一个实例上的一个或者多个改变关联合并为一个单个变化。如果数据读者没能完整的接收到所有的改变，那么相当于这些改变都是无效的。这个语义非常类似于传统关系数据库的事件处理。coherent_access的默认值为false。</p>
+<p>ordered_access表示发布者发布的数据在读者上按顺序展示。它的效果在本质上和DESTINATION_ORDER策略很相似，不同的是，ordered_access允许数据的顺序与实例顺利无关。ordered_access的默认值为false。</p>
+<p>注：该策略影响了订阅者获得样本的顺序和作用域，但是订阅端应用程序必须使用合适的逻辑来读取这些样本以保证请求的行为。</p>
+<h2 id="17、DESTINATION-ORDER"><a href="#17、DESTINATION-ORDER" class="headerlink" title="17、DESTINATION_ORDER"></a>17、DESTINATION_ORDER</h2><p>DESTINATION_ORDER QoS策略控制数据实例的样本到达数据读者的顺序，如果HISTRORY策略的depth成员变量设为默认值1，实际将影响写者所写的所有最新数据样本，下面是DESTINATION_ORDER Qos的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enum DestinationOrderQosPolicyKind &#123;</span><br><span class="line">  BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS,</span><br><span class="line">  BY_SOURCE_TIMESTAMP_DESTINATIONORDER_QOS</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct DestinationOrderQosPolicy &#123;</span><br><span class="line">  DestinationOrderQosPolicyKind kind;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>值BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS（默认）表示读者接收到的实例的样本按接收端的时间排序。值得注意的是，对于同一个写者发出的数据样本，接收方未必按顺序接收。如果需要强制按顺序接收，另一种方式BY_SOURCE_TIMESTAMP_DESTINATIONORDER_QOS值将会用到。</li>
+<li>值BY_SOURCE_TIMESTAMP_DESTINATIONORDER_QOS表示数据实例的样本按发出的写者端的时间排序。需要注意的是，如果多个数据写者写相同的实例，必须保证多个写者所在的主机时钟同步。</li>
+</ul>
+<h2 id="18、WRITER-DATA-LIFECYCLE"><a href="#18、WRITER-DATA-LIFECYCLE" class="headerlink" title="18、WRITER_DATA_LIFECYCLE"></a>18、WRITER_DATA_LIFECYCLE</h2><p>WRITER_DATA_LIFECYCLE QoS策略控制数据写者管理的数据实例集合，下面是WRITER_DATA_LIFECYCLE QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct WriterDataLifecycleQosPolicy &#123;</span><br><span class="line">  boolean autodispose_unregistered_instances;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当成员autodispose_unregistered_instances设为true时（默认），数据写者在实例注销时自动清除。在有的情况下，当实例注销时，这是一个不错的实例保护方式。比如，该策略允许EXCLUSIVE（独占）式的数据写者优雅地遵从后续的读者而不影响实例的状态，删除一个数据写者会隐含的注销读者保存的先前的所有样本。</p>
+<h2 id="19、READER-DATA-LIFECYCLE"><a href="#19、READER-DATA-LIFECYCLE" class="headerlink" title="19、READER_DATA_LIFECYCLE"></a>19、READER_DATA_LIFECYCLE</h2><p>READER_DATA_LIFECYCLE QoS策略控制数据读者管理的数据实例集合，下面是READER_DATA_LIFECYCLE QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct ReaderDataLifecycleQosPolicy &#123;</span><br><span class="line">  Duration_t autopurge_nowriter_samples_delay;</span><br><span class="line">  Duration_t autopurge_disposed_samples_delay;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>通常，数据读者保存实例的样本直到与该样本没有任何关联的写者为止，实例已经被处理，实例要么被清除，要么被应用程序读取。</p>
+<p>在有些情况下，由于资源的使用问题，需要有合理的约束方式。例如，在故障切换的环境中，该策略允许晚加入的数据写者延长实例的生命周期。</p>
+<p>成员autopurge_nowriter_samples_delay可控制读者在资源回收之前所要等待的时间，实例的状态转移为NOT_ALIVE_NO_WRITERS，该成员的默认值为无穷大。</p>
+<p>成员autopurge_disposed_samples_delay可控制读者在资源回收之前所要等待的时间，实例的状态转移为NO_ALIVE_DISPOSED，该成员的默认值为无穷大。</p>
+<h2 id="20、TIME-BASED-FILTER"><a href="#20、TIME-BASED-FILTER" class="headerlink" title="20、TIME_BASED_FILTER"></a>20、TIME_BASED_FILTER</h2><p>TIME_BASED_FILTER QoS策略可以用于指定接收者多长时间接收数据。对于不同的数据样本，不管发布者以多快的速度发布数据，在订阅端，都可以指定数据实例接收更新样本的最小间隔时间，下面是TIME_BASED_FILTER QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct TimeBasedFilterQosPolicy&#123;</span><br><span class="line">  Duration_t minimum_separation;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>数据读者可以指定一个时间间隔（minimum_separation），该间隔指定了实例更新的的最小时间间隔；它允许数据读者在不影响关联的数据写者状态的前提下，可以修改。默认的minimum_separation是0，表示没有间隔。该QoS策略不会节省带宽，实例值的更新仍然会发送给订阅者进程，它只会影响那些数据读者获取的样本。</p>
+<h2 id="21、OWNERSHIP"><a href="#21、OWNERSHIP" class="headerlink" title="21、OWNERSHIP"></a>21、OWNERSHIP</h2><p>OWNERSHIP策略控制是否允许多个数据写者为同一个实例发布样本。所有权可以为EXCLUSIVE和SHARED方式，下面是OWNERSHIP QoS策略IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enum OwnershipQosPolicyKind &#123;</span><br><span class="line">  SHARED_OWNERSHIP_QOS,</span><br><span class="line">  EXCLUSIVE_OWNERSHIP_QOS</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct OwnershipQosPolicy &#123;</span><br><span class="line">  OwnershipQosPolicyKind kind;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>kind成员设为共享方式SHARED_OWNERSHIP_QOS，表示允许多个数据写者更新同一个数据实例。如果kind成员设置为独占式EXCLUSIVE_OWNERSHIP_QOS，表示只允许具有实例所有权的数据写者更新实例。实例的所有者是由OWNERSHIP_STRENGTH策略决定的；OWNERSHIP_STRENGTH策略中成员变量value取值最大的数据写者为实例的所有者。影响所有权还有一个可能的因素，具有最高值的写者是否还存活着，这个由LIVELINESS策略决定。</p>
+<h2 id="22、OWNERSHIP-STRENGTH"><a href="#22、OWNERSHIP-STRENGTH" class="headerlink" title="22、OWNERSHIP_STRENGTH"></a>22、OWNERSHIP_STRENGTH</h2><p>OWNERSHIP_STRENGTH策略与OWNERSHI策略配合使用，当OWNERSHI的kind设为独占式EXCLUSIVE时有效，下面是OWNERSHIP_STRENGTH QoS策略的IDL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct OwnershipStrengthQosPolicy &#123;</span><br><span class="line">  long value;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>value成员变量用来确定数据写者是否是数据实例的所有权者，它的默认值为0。</p>
+<h2 id="策略使用示例"><a href="#策略使用示例" class="headerlink" title="策略使用示例"></a>策略使用示例</h2><p>下面的示例代码演示了Qos策略在发布端的应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">DDS::DataWriterQos dw_qos;</span><br><span class="line">pub-&gt;get_default_datawriter_qos(dw_qos);</span><br><span class="line"></span><br><span class="line">dw_qos.history.kind = DDS::KEEP_ALL_HISTORY_QOS;</span><br><span class="line">dw_qos.reliability.kind = DDS::RELIABLE_RELIABILITY_QOS;</span><br><span class="line">dw_qos.reliability.max_blocking_time.sec = 10;</span><br><span class="line">dw_qos.reliability.max_blocking_time.nanosec = 0;</span><br><span class="line">dw_qos.resource_limits.max_samples_per_instance = 100;</span><br><span class="line"></span><br><span class="line">DDS::DataWriter_var dw =</span><br><span class="line">  pub-&gt;create_datawriter(topic, dw_qos, 0, // No listener</span><br><span class="line">                     OpenDDS::DCPS::DEFAULT_STATUS_MASK);</span><br></pre></td></tr></table></figure>
+
+<p>上述代码创建了发布端的数据写者，试用了以下几种Qos策略：</p>
+<ul>
+<li>HISTORY 策略，取值为保持所有；</li>
+<li>REALIBAILITY 策略，设置可靠类型的最大阻塞时间为10秒；</li>
+<li>RESOURCE_LIMIT策略，设置每个实例的的最大样本数为100。</li>
+</ul>
+<p>以上策略的组合意味着：当100个样本等待传送时，写者在返回错误码前可以阻塞多达10秒。如果相同的策略应用在数据读者上，置意味着：直至有100个未读的样本排队之后，允许有样本被拒收。被拒绝的样本会被丢弃掉，并更新SampleRejectStatus(样本拒收状态)。</p>
+<p>有关OpenDDS的相关问题欢迎发送邮件至<a href="mailto:lyingbo@aliyun.com" target="_blank" rel="noopener">lyingbo@aliyun.com</a>一起讨论</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lyingbo.com/2016/03/20/OpenDDS之Qos策略(3)/" data-id="ck0rt0auo00281ndxthsdri00" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qos/">Qos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略说明/">策略说明</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/14/基于Docker搭建Hadoop集群/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于Docker搭建Hadoop集群
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/23/OpenDDS之Qos策略(2)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OpenDDS之Qos策略(2)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenDDS/">OpenDDS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序开发/">程序开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACE/">ACE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cluster/">Cluster</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataNode/">DataNode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDL定义/">IDL定义</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDL编译/">IDL编译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MPC/">MPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NameNode/">NameNode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qos/">Qos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ace-sock-dgram-mcast/">ace_sock_dgram_mcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bmp/">bmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpg/">jpg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双缓存/">双缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/发布数据/">发布数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境搭建/">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/示例开发/">示例开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/策略说明/">策略说明</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组播通信/">组播通信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/订阅数据/">订阅数据</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACE/" style="font-size: 10px;">ACE</a> <a href="/tags/Cluster/" style="font-size: 10px;">Cluster</a> <a href="/tags/DataNode/" style="font-size: 10px;">DataNode</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/IDL定义/" style="font-size: 10px;">IDL定义</a> <a href="/tags/IDL编译/" style="font-size: 10px;">IDL编译</a> <a href="/tags/MFC/" style="font-size: 10px;">MFC</a> <a href="/tags/MPC/" style="font-size: 16.67px;">MPC</a> <a href="/tags/NameNode/" style="font-size: 10px;">NameNode</a> <a href="/tags/OpenDDS/" style="font-size: 20px;">OpenDDS</a> <a href="/tags/Qos/" style="font-size: 13.33px;">Qos</a> <a href="/tags/ace-sock-dgram-mcast/" style="font-size: 10px;">ace_sock_dgram_mcast</a> <a href="/tags/bmp/" style="font-size: 10px;">bmp</a> <a href="/tags/jpg/" style="font-size: 10px;">jpg</a> <a href="/tags/双缓存/" style="font-size: 10px;">双缓存</a> <a href="/tags/发布数据/" style="font-size: 10px;">发布数据</a> <a href="/tags/环境搭建/" style="font-size: 10px;">环境搭建</a> <a href="/tags/示例开发/" style="font-size: 13.33px;">示例开发</a> <a href="/tags/策略使用/" style="font-size: 13.33px;">策略使用</a> <a href="/tags/策略说明/" style="font-size: 13.33px;">策略说明</a> <a href="/tags/组播通信/" style="font-size: 10px;">组播通信</a> <a href="/tags/订阅数据/" style="font-size: 10px;">订阅数据</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/14/基于Docker搭建Hadoop集群/">基于Docker搭建Hadoop集群</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/20/OpenDDS之Qos策略(3)/">OpenDDS之Qos策略(3)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/23/OpenDDS之Qos策略(2)/">OpenDDS之Qos策略(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/09/16/OpenDDS之Qos策略(1)/">OpenDDS之Qos策略(1)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/">基于OpenDDS应用程序开发(3)订阅端实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 lyingbo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

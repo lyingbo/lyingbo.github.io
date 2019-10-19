@@ -140,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2019/06/14/基于Docker搭建Hadoop集群/" data-id="ck0rt0asr00051ndxgs9bgvp3" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2019/06/14/基于Docker搭建Hadoop集群/" data-id="ck1xtm1680005qqdxq09ubb5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cluster/">Cluster</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataNode/">DataNode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NameNode/">NameNode</a></li></ul>
@@ -267,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2016/03/20/OpenDDS之Qos策略(3)/" data-id="ck0rt0auo00281ndxthsdri00" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2016/03/20/OpenDDS之Qos策略(3)/" data-id="ck1xtm1bw0028qqdxzmvkevos" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qos/">Qos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略说明/">策略说明</a></li></ul>
@@ -384,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2015/11/23/OpenDDS之Qos策略(2)/" data-id="ck0rt0aue00261ndxkn0wxvha" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2015/11/23/OpenDDS之Qos策略(2)/" data-id="ck1xtm1b30026qqdx7ewkl16v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qos/">Qos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略说明/">策略说明</a></li></ul>
@@ -997,7 +997,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/09/16/OpenDDS之Qos策略(1)/" data-id="ck0rt0aud00251ndxvdsuxnwt" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/09/16/OpenDDS之Qos策略(1)/" data-id="ck1xtm1b10025qqdx7gfvvbqe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qos/">Qos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略使用/">策略使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/策略说明/">策略说明</a></li></ul>
@@ -1074,7 +1074,7 @@
 
 <p>调用域参与者的delete_contained_entities()操作删除所有该参与者创建的主题、订阅者。一旦执行完该操作，就可以使用域参与者工厂删除域参与者了。</p>
 <h2 id="8、示例程序运行："><a href="#8、示例程序运行：" class="headerlink" title="8、示例程序运行："></a>8、示例程序运行：</h2><p>修改完以上代码并编译完成，就可以运行订阅端应用程序了，需要先运行DDS的信息仓库，开始中打开一个CMD窗口，执行如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%DDS_ROOT%/bin/DCPSInfoRepo -ORBEndpoint iiop://localhost:12345</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%DDS_ROOT%/bin/DCPSInfoRepo  -ORBListenEndpoints  iiop://localhost:12345</span><br></pre></td></tr></table></figure>
 
 <p>再次打开一个CMD窗口，cd到Demo目录下，执行如下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subscriber -DCPSInfoRepo corbaloc::localhost:12345/DCPSInfoRepo</span><br></pre></td></tr></table></figure>
@@ -1085,7 +1085,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/" data-id="ck0rt0asz000a1ndxstcbjvb0" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/07/29/基于OpenDDS应用程序开发(3)订阅端实现/" data-id="ck1xtm183000aqqdx83hil16b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPC/">MPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例开发/">示例开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/订阅数据/">订阅数据</a></li></ul>
@@ -1166,7 +1166,7 @@
 
 <p>调用域参与者的delete_contained_entities()操作删除所有该参与者创建的主题、公布者。一旦执行完该操作，就可以使用域参与者工厂删除域参与者了。</p>
 <h2 id="9、示例程序运行："><a href="#9、示例程序运行：" class="headerlink" title="9、示例程序运行："></a>9、示例程序运行：</h2><p>修改完以上代码并编译完成，就可以运行公布端应用程序了，需要先运行DDS的信息仓库，开始中打开一个CMD窗口，执行如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%DDS_ROOT%/bin/DCPSInfoRepo  -ORBEndpoint  iiop://localhost:12345</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%DDS_ROOT%/bin/DCPSInfoRepo  -ORBListenEndpoints  iiop://localhost:12345</span><br></pre></td></tr></table></figure>
 
 <p>再次打开一个CMD窗口，cd到Demo目录下，执行如下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publisher -DCPSInfoRepo corbaloc::localhost:12345/DCPSInfoRepo</span><br></pre></td></tr></table></figure>
@@ -1177,7 +1177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/07/10/基于OpenDDS应用程序开发(2)公布端实现/" data-id="ck0rt0asx00091ndx7bpbbvc3" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/07/10/基于OpenDDS应用程序开发(2)公布端实现/" data-id="ck1xtm17j0009qqdxci6mtcj0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPC/">MPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/发布数据/">发布数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例开发/">示例开发</a></li></ul>
@@ -1254,7 +1254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/" data-id="ck0rt0ast00061ndxmx3pioo9" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/07/02/基于OpenDDS应用程序开发(1)IDL定义/" data-id="ck1xtm16w0006qqdxtfd7ee7z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDL定义/">IDL定义</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDL编译/">IDL编译</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPC/">MPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例开发/">示例开发</a></li></ul>
@@ -1318,7 +1318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck0rt0asp00041ndx6kztj8ux" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2014/03/06/OpenDDS环境搭建/" data-id="ck1xtm1620004qqdxlhjkyfyw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPC/">MPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenDDS/">OpenDDS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>
@@ -1364,7 +1364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2013/04/14/ACE组播通信/" data-id="ck0rt0as800001ndx8rp00w4x" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2013/04/14/ACE组播通信/" data-id="ck1xtm1500000qqdx6piuwxch" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACE/">ACE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ace-sock-dgram-mcast/">ace_sock_dgram_mcast</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组播通信/">组播通信</a></li></ul>
@@ -1413,7 +1413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lyingbo.com/2011/04/25/MFC程序添加背景图片的方法/" data-id="ck0rt0asj00011ndx76rmwkpc" class="article-share-link">Share</a>
+      <a data-url="http://lyingbo.com/2011/04/25/MFC程序添加背景图片的方法/" data-id="ck1xtm15o0001qqdxfdcufnfk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MFC/">MFC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bmp/">bmp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpg/">jpg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/双缓存/">双缓存</a></li></ul>
